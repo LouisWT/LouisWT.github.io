@@ -1,33 +1,26 @@
 {
-    "avatar": "http://ww2.sinaimg.cn/small/74990035jw1f1rjkd681bj20rs0rsdhg.jpg",
-    "name": "你的大名",
-	"tag": "Web前端/iOS/技术宅",
-    "desc": "你的简介（建议一两句话）",
+    "avatar": "http://louiswt.oss-cn-shenzhen.aliyuncs.com/pictures/avatar.jpg",
+    "name": "刘文同",
+	"tag": "Web前端/Web后台",
+    "desc": "本科华科毕业，目前本校硕士在读",
     "skills": {
-        "Javascript": 8,
-		"Python": 6,
-		
-		"invisible-split-line-1": -1,
-
-		"Node.js": 4
+		"Javascript": 7,
+		"Node.js": 6,
+		"invisible-split-line-1": -1
     },
     "projects": [{
-		"name": "你的项目A",
-		"image": "https://d13yacurqjgara.cloudfront.net/users/138819/screenshots/2578899/dribbble_800x600_01_1x.png",
-		"tags": ["2016年", "项目标签"],
-		"description": "你的项目A的简介",
-		"link_text": "网站链接",
-		"link": "https://dribbble.com/"
+		"name": "微助教",
+		"image": "http://louiswt.oss-cn-shenzhen.aliyuncs.com/pictures/weizhujiao.jpg",
+		"tags": ["2017年", "教学工具", "后台开发"],
+		"description": "微助教课堂教学系统，为老师提供在线出题、看题和查看答题数据、课堂签到的服务，为学生提供在微信公众号加入课堂、答题和签到的服务。",
+		"link_text": "微助教",
+		"link": "http://portal.teachermate.com.cn/"
 	}, {
-		"name": "你的作品B",
-		"image": "https://d13yacurqjgara.cloudfront.net/users/4094/screenshots/2578885/time-lords-drib_1x.jpg",
-		"description": "你的作品B的简介",
-		"tags": ["Github", "设计"],
-		"link_text": "Github地址",
-		"link": "https://github.com/"
-	}],
-	"reward": [
-	    "http://raytaylorlin-blog.qiniudn.com/image/about/weixin_reward.png",
-		"http://raytaylorlin-blog.qiniudn.com/image/about/zhifubao_reward.png"
-	]
+		"name": "轻慕课",
+		"image": "http://louiswt.oss-cn-shenzhen.aliyuncs.com/pictures/qingmooc.jpg",
+		"description": "轻慕课是一个微课录制工具，可以随时随地录制微课，并利用网站分发资源",
+		"tags": ["2018年", "录课工具", "后台开发", "前端开发"],
+		"link_text": "轻慕课",
+		"link": "https://www.qingmooc.com/"
+	}]
 }
