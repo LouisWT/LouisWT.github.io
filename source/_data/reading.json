@@ -1,44 +1,77 @@
 {
     "define": {
-	    "readed": "已读",
+        "readed": "已读",
         "reading": "在读",
         "wanted": "想读"
     },
     "contents": {
-        "readed": [{
-            "title": "众妙之门：网站UI设计之道",
-            "cover": "http://img3.douban.com/lpic/s23139051.jpg",
-            "review": "推荐非UI人士了解UI阅读。",
-            "score": "7",
-            "doubanLink": "http://book.douban.com/subject/20281463/"
-        }, {
-            "title": "JavaScript模式",
-            "cover": "http://img5.douban.com/lpic/s11337059.jpg",
-            "review": "书很薄，但内容相当实用。",
-            "score": "8.5",
-            "doubanLink": "http://book.douban.com/subject/11506062/"
-        }, {
-            "title": "JavaScript语言精粹",
-            "cover": "http://img3.douban.com/lpic/s11373174.jpg",
-            "review": "这是一本前端人员的基础书，强烈推荐阅读，而且越早看受益越多！",
-            "score": "9.5",
-            "doubanLink": "http://book.douban.com/subject/11874748/"
-        }],
-		
-		"reading": [{
-            "title": "网络游戏核心技术与实战",
-            "cover": "http://img4.douban.com/lpic/s27881888.jpg",
-            "review": "",
-            "score": null,
-            "doubanLink": "http://book.douban.com/subject/25850090/"
-        }],
-
-        "wanted": [{
-            "title": "计算机程序的构造和解释",
-            "cover": "http://img4.douban.com/lpic/s1113106.jpg",
-            "review": "",
-            "score": null,
-            "doubanLink": "http://book.douban.com/subject/1148282/"
-        }]
+        "readed": [
+            {
+                "title": "你不知道的 JavaScript(上卷)",
+                "cover": "https://img3.doubanio.com/view/subject/l/public/s28033372.jpg",
+                "review": "JavaScipt语言基础书，很薄，但是对 this 原型链 等概念讲得真的透彻",
+                "score": "9",
+                "doubanLink": "https://book.douban.com/subject/26351021/"
+            },
+            {
+                "title": "你不知道的 JavaScript(中卷)",
+                "cover": "https://img3.doubanio.com/view/subject/l/public/s28969600.jpg",
+                "review": "对异步编程解决方案讲的很好，尤其是 Promise",
+                "score": "8.5",
+                "doubanLink": "https://book.douban.com/subject/26854244/"
+            },
+            {
+                "title": "你不知道的 JavaScript(下卷)",
+                "cover": "https://img1.doubanio.com/view/subject/l/public/s29656379.jpg",
+                "review": "比前两本差不少，但是用来学习 ES6 也是不错的选择，相对于 ES6 入门更细致一点",
+                "score": "7",
+                "doubanLink": "https://book.douban.com/subject/27620408/"
+            },
+            {
+                "title": "深入浅出 Node.js",
+                "cover": "https://book.douban.com/subject/25768396/",
+                "review": "偏向原理的一本书，对 chrome V8 引擎的一些底层原理、Node.js 异步编程等知识做了深入的介绍",
+                "score": "8",
+                "doubanLink": "https://img3.doubanio.com/view/subject/l/public/s27269296.jpg"
+            },
+            {
+                "title": "Node.js：来一打 C++ 扩展",
+                "cover": "https://img3.doubanio.com/view/subject/l/public/s29801512.jpg",
+                "review": "更加偏向原理的书，对 Node.js 的模块机制、事件循环的运行过程有着非常详细的解析，但是建议有 C++ 基础的人看，不然有很多地方容易一头雾水 XD",
+                "doubanLink": "https://book.douban.com/subject/30247892/"
+            }
+        ],
+        "reading": [
+            {
+                "title": "剑指Offer",
+                "cover": "https://img3.doubanio.com/view/subject/l/public/s29413793.jpg",
+                "review": "",
+                "score": null,
+                "doubanLink": "https://book.douban.com/subject/27008702/"
+            },
+            {
+                "title": "深入React技术栈",
+                "cover": "https://img3.doubanio.com/view/subject/l/public/s29162154.jpgg",
+                "review": "",
+                "score": null,
+                "doubanLink": "https://book.douban.com/subject/26918038/"
+            }
+        ],
+        "wanted": [
+            {
+                "title": "程序员面试笔试宝典",
+                "cover": "https://img3.doubanio.com/view/subject/l/public/s29801080.jpg",
+                "review": "",
+                "score": null,
+                "doubanLink": "https://book.douban.com/subject/30256279/"
+            },
+            {
+                "title": "技术之瞳——阿里巴巴技术笔试心得",
+                "cover": "https://img3.doubanio.com/view/subject/l/public/s29120075.jpg",
+                "review": "",
+                "score": null,
+                "doubanLink": "https://book.douban.com/subject/26902177/"
+            }
+        ]
     }
 }
