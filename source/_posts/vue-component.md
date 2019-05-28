@@ -1,3 +1,11 @@
+---
+layout: simple-article
+title: Vue 学习笔记二
+categories:
+    - Vue
+tags:
+    - Vue
+---
 # 一. 组件注册
 
 ## 组件名
