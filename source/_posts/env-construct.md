@@ -115,7 +115,12 @@ sudo npm i -g typescript
 sudo npm install -g @vue/cli
 ```
 
-### 2.5 安装 lerna 解决 package 之间的依赖关系
+### 2.5 安装 Nest.js
+```s
+sudo npm install -g @nest/cli
+```
+
+### 2.6 安装 lerna 解决 package 之间的依赖关系
 ```s
 sudo npm install lerna -g
 ```
