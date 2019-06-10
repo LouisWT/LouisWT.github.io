@@ -1,0 +1,766 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>ES6 之 Symbol | LouisWT 的技术博客</title>
+    <meta name="author" content="LouisWT">
+    
+    <meta name="description" content="Tech Blog">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="ES6 之 Symbol">
+    <meta property="og:site_name" content="LouisWT 的技术博客">
+
+    
+    <meta property="og:image" content="">
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="LouisWT 的技术博客" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="indigo">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">LouisWT 的技术博客</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/">
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives">
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading">
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about">
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search">
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav indigo darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://louiswt.oss-cn-shenzhen.aliyuncs.com/pictures/avatar.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">刘文同</p>
+                        <p class="desc">Web前端/Web后台</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/">
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives">
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading">
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about">
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search">
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav indigo darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Chrome/">
+                    Chrome <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Mac/">
+                    Mac <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/JavaScript/">
+                    JavaScript <span class="right">6 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/JavaScript/ES6/">
+                    ES6 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/前端/">
+                    前端 <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/Canvas/">
+                    Canvas <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/状态管理/">
+                    状态管理 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/前端/状态管理/Redux/">
+                    Redux <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/Webpack/">
+                    Webpack <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/服务器端/">
+                    服务器端 <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/服务器端/Node-js/">
+                    Node-js <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/服务器端/Node-js/Koa/">
+                    Koa <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/服务器端渲染/">
+                    服务器端渲染 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/服务器端渲染/浏览器端渲染/">
+                    浏览器端渲染 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/VSCode/">
+                    VSCode <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/轻慕课/">
+                    轻慕课 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Vue/">
+                    Vue <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper indigo">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/JavaScript/">JavaScript</a><a class="breadcrumb" href="/categories/JavaScript/ES6/">ES6</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>ES6 之 Symbol</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2019-06-10T08:06:48.629Z"><a href="/2019/06/10/es6-symbol/">2019-06-10</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/ES6/" class="chip pink lighten-1">ES6</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#一-用法"><span class="section table-of-contents-text">一. 用法</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#1-1-创建一个唯一标识符"><span class="section table-of-contents-text">1.1 创建一个唯一标识符</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#1-2-作为对象的键值"><span class="section table-of-contents-text">1.2 作为对象的键值</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#1-3-获取对象所有的-Symbol-属性"><span class="section table-of-contents-text">1.3 获取对象所有的 Symbol 属性</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#1-4-注册全局符号"><span class="section table-of-contents-text">1.4 注册全局符号</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#二-公开符号"><span class="section table-of-contents-text">二. 公开符号</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-1-Symbol-iterator"><span class="section table-of-contents-text">2.1 Symbol.iterator</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-2-Symbol-toStringTag-与-Symbol-hasInstance"><span class="section table-of-contents-text">2.2 Symbol.toStringTag 与 Symbol.hasInstance</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-3-Symbol-isConcatSpreadable"><span class="section table-of-contents-text">2.3 Symbol.isConcatSpreadable</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-4-Symbol-unscopables"><span class="section table-of-contents-text">2.4 Symbol.unscopables</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-5-Symbol-species"><span class="section table-of-contents-text">2.5 Symbol.species</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-6-Symbol-toPrimitive"><span class="section table-of-contents-text">2.6 Symbol.toPrimitive</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-7-正则表达式-Symbol"><span class="section table-of-contents-text">2.7 正则表达式 Symbol</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#三-总结"><span class="section table-of-contents-text">三. 总结</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#参考"><span class="section table-of-contents-text">参考</span></a></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <p>Symbol 是 ES6 新引入的数据类型，是除了 Number String Boolean Object undefined null 以外的第七个数据类型。<br><a id="more"></a></p>
+<h3 id="一-用法"><a href="#一-用法" class="headerlink" title="一. 用法"></a>一. 用法</h3><h4 id="1-1-创建一个唯一标识符"><a href="#1-1-创建一个唯一标识符" class="headerlink" title="1.1 创建一个唯一标识符"></a>1.1 创建一个唯一标识符</h4><p>Symbol 可以用来创建一个独一无二的值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let s1 = Symbol(&apos;foo&apos;)</span><br><span class="line">let s2 = Symbol(&apos;foo&apos;);</span><br><span class="line"></span><br><span class="line">s1 === s2 // false</span><br></pre></td></tr></table></figure>
+<p>可见即使是相同字符串创建出来的 Symbol 值也是不同的。</p>
+<h4 id="1-2-作为对象的键值"><a href="#1-2-作为对象的键值" class="headerlink" title="1.2 作为对象的键值"></a>1.2 作为对象的键值</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const s = Symbol(&apos;key&apos;)</span><br><span class="line">let a = &#123;</span><br><span class="line">    [s]: 1,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a[s] // 1</span><br></pre></td></tr></table></figure>
+<p>不能用 . 运算符的写法，因为它不会计算属性名，跟的总是字符串</p>
+<h4 id="1-3-获取对象所有的-Symbol-属性"><a href="#1-3-获取对象所有的-Symbol-属性" class="headerlink" title="1.3 获取对象所有的 Symbol 属性"></a>1.3 获取对象所有的 Symbol 属性</h4><p>使用 Symbol 的属性名，不会出现在 for … in, for … of 循环中，可以使用 <code>Object.getOwnPropertySymbols</code> 来获取一个对象的符号属性名。如果既想获取普通属性也想获取符号属性，可以用 <code>ReFlect.ownKeys()</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let a = &#123;</span><br><span class="line">    [Symbol()]: 1,</span><br><span class="line">    b: 2,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Object.getOwnPropertySymbols(a) // [Symbol()]</span><br><span class="line">Reflect.ownKeys(a) // [&quot;b&quot;, Symbol()]</span><br></pre></td></tr></table></figure>
+<h4 id="1-4-注册全局符号"><a href="#1-4-注册全局符号" class="headerlink" title="1.4 注册全局符号"></a>1.4 注册全局符号</h4><p>由于每个符号是唯一的，那么在使用时不免将符号变量传来传去的来使用。这时候就可以使用注册全局符号的方式来避免。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let b = Symbol(&apos;key3&apos;)</span><br><span class="line">let a = &#123;</span><br><span class="line">    [Symbol.for(&apos;key1&apos;)]: 1,</span><br><span class="line">    [Symbol(&apos;key2&apos;)]: 2,</span><br><span class="line">    [b]: 3,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a[Symbol.for(&apos;key1&apos;)] // 1</span><br><span class="line">a[Symbol(&apos;key1&apos;)] // undefined</span><br><span class="line">a[b] // 3</span><br></pre></td></tr></table></figure>
+<p><code>Symbol.for(key)</code> 使用给定的key在全局Symbol中搜索现有的symbol，如果找到则返回该symbol。否则将使用给定的key在全局symbol注册表中创建一个新的symbol。</p>
+<p><code>Symbol.keyFor(symbol)</code> 与 <code>Symbol.for(key)</code>的过程相反，它是根据一个 symbol 值在全局注册表中搜寻相应的键值</p>
+<h3 id="二-公开符号"><a href="#二-公开符号" class="headerlink" title="二. 公开符号"></a>二. 公开符号</h3><p>ES6 预先定义了一些内置符号。这些符号主要是为了提供一些专门的元属性。</p>
+<h4 id="2-1-Symbol-iterator"><a href="#2-1-Symbol-iterator" class="headerlink" title="2.1 Symbol.iterator"></a>2.1 <code>Symbol.iterator</code></h4><p>Symbol.iterator 表示任意对象的一个专门属性，JS会自动在这个属性上寻找一个方法，用这个方法构造一个迭代器来消耗这个对象的值。</p>
+<p>可以通过修改这个属性值来定制迭代器逻辑。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const arr = [1,2,3,4,5,6,7];</span><br><span class="line"></span><br><span class="line">for (let v of arr) &#123;</span><br><span class="line">    console.log(v) // 1 2 3 4 5 6 7</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">arr[Symbol.iterator] = function*() &#123;</span><br><span class="line">    for (let idx = 1; idx &lt; this.length; idx += 2) &#123;</span><br><span class="line">        yield this[idx];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">for (let v of arr) &#123;</span><br><span class="line">    console.log(v) // 2 4 6</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-Symbol-toStringTag-与-Symbol-hasInstance"><a href="#2-2-Symbol-toStringTag-与-Symbol-hasInstance" class="headerlink" title="2.2 Symbol.toStringTag 与 Symbol.hasInstance"></a>2.2 <code>Symbol.toStringTag</code> 与 <code>Symbol.hasInstance</code></h4><p><code>Symbol.toStringTag</code> 影响的是对象的 toString() 的结果</p>
+<p><code>Symbol.hasInstance</code> 影响的是 instaceof 的结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function Foo(greeting) &#123;</span><br><span class="line">    this.greeting = greeting;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Foo.prototype[Symbol.toStringTag] = &quot;Foo&quot;;</span><br><span class="line"></span><br><span class="line">Object.defineProperty(Foo, Symbol.hasInstance, &#123;</span><br><span class="line">    value: function(instance) &#123;</span><br><span class="line">        return instance.greeting === &apos;hello&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">let a = new Foo(&apos;hello&apos;);</span><br><span class="line">let b = new Foo(&apos;world&apos;);</span><br><span class="line"></span><br><span class="line">b[Symbol.toStringTag] = &apos;Bar&apos;</span><br><span class="line"></span><br><span class="line">a.toString() // [object Foo]</span><br><span class="line">String(b) // [object Bar]</span><br><span class="line"></span><br><span class="line">a instanceof Foo // true</span><br><span class="line">b instanceof Foo // false</span><br></pre></td></tr></table></figure>
+<p>Symbol.hasInstance 属性默认 writable: false，所以要用 Object.defineProperty 方式来定义。</p>
+<h4 id="2-3-Symbol-isConcatSpreadable"><a href="#2-3-Symbol-isConcatSpreadable" class="headerlink" title="2.3 Symbol.isConcatSpreadable"></a>2.3 <code>Symbol.isConcatSpreadable</code></h4><p>用于配置某对象作为 Array.prototype.concat 方法的参数时是否展开其数组元素。</p>
+<ol>
+<li><p>对数组来说</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let a = [4,5,6];</span><br><span class="line">let b = [1,2,3];</span><br><span class="line"></span><br><span class="line">a.concat(b); // [4,5,6,1,2,3]</span><br><span class="line"></span><br><span class="line">b[Symbol.isConcatSpreadable] = false;</span><br><span class="line">a.concat(b); // [4,5,6,[1,2,3]]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>类数组对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let a = [1,2,3];</span><br><span class="line">let arraylike = &#123;</span><br><span class="line">    [Symbol.isConcatSpreadable]: true,</span><br><span class="line">    length: 2,</span><br><span class="line">    0: &apos;hello&apos;,</span><br><span class="line">    &apos;1&apos;: &apos;world&apos;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">a.concat(arraylike) // [1, 2, 3, &quot;hello&quot;, &quot;world&quot;]</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>将类数组对象的 Symbol.isConcatSpreadable 设置为 true，并指定 length 属性。就可以对这个类数组对象展开了。</p>
+<h4 id="2-4-Symbol-unscopables"><a href="#2-4-Symbol-unscopables" class="headerlink" title="2.4 Symbol.unscopables"></a>2.4 <code>Symbol.unscopables</code></h4><p>指用于指定对象值，其对象自身和继承的从关联对象的 with 环境绑定中排除的属性名称。</p>
+<p>不建议使用 with 语法，所以这个符号最好也少用</p>
+<h4 id="2-5-Symbol-species"><a href="#2-5-Symbol-species" class="headerlink" title="2.5 Symbol.species"></a>2.5 <code>Symbol.species</code></h4><p><code>Symbol.species</code>的值会被构造函数用来创建派生对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class MyArray extends Array &#123;</span><br><span class="line">  // 覆盖 species 到父级的 Array 构造函数上</span><br><span class="line">  static get [Symbol.species]() &#123; return Array; &#125;</span><br><span class="line">&#125;</span><br><span class="line">let a = new MyArray(1,2,3);</span><br><span class="line"></span><br><span class="line">console.log(a instanceof MyArray); // true</span><br><span class="line">console.log(a instanceof Array); // true</span><br><span class="line"></span><br><span class="line">let mapped = a.map(x =&gt; x * x);</span><br><span class="line"></span><br><span class="line">console.log(mapped instanceof MyArray); // false</span><br><span class="line">console.log(mapped instanceof Array); // true</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class MyArray extends Array &#123;&#125;</span><br><span class="line">let a = new MyArray(1,2,3);</span><br><span class="line"></span><br><span class="line">console.log(a instanceof MyArray); // true</span><br><span class="line">console.log(a instanceof Array); // true</span><br><span class="line"></span><br><span class="line">let mapped = a.map(x =&gt; x * x);</span><br><span class="line"></span><br><span class="line">console.log(mapped instanceof MyArray); // true</span><br><span class="line">console.log(mapped instanceof Array); // true</span><br></pre></td></tr></table></figure>
+<p>在实际应用场景中，如果你是一个库作者，在一个库的内部使用了一些内部类，但是在导出方法时想返回常规类型来供其他人使用，那么就可以覆写 Symbol.species。</p>
+<p><a href="https://stackoverflow.com/questions/38082965/symbol-species-example-from-mdn-not-making-sense" target="_blank" rel="noopener">具体戳这里</a></p>
+<h4 id="2-6-Symbol-toPrimitive"><a href="#2-6-Symbol-toPrimitive" class="headerlink" title="2.6 Symbol.toPrimitive"></a>2.6 <code>Symbol.toPrimitive</code></h4><p>通过这个属性可以将对象转换为原始值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">const obj1 = &#123;&#125;;</span><br><span class="line">console.log(+obj1);     // NaN</span><br><span class="line">console.log(`$&#123;obj1&#125;`); // &quot;[object Object]&quot;</span><br><span class="line">console.log(obj1 + &quot;&quot;); // &quot;[object Object]&quot;</span><br><span class="line"></span><br><span class="line">// 拥有 Symbol.toPrimitive 属性的对象</span><br><span class="line">const obj2 = &#123;</span><br><span class="line">  [Symbol.toPrimitive](hint) &#123;</span><br><span class="line">    if (hint == &quot;number&quot;) &#123;</span><br><span class="line">      return 10;</span><br><span class="line">    &#125;</span><br><span class="line">    if (hint == &quot;string&quot;) &#123;</span><br><span class="line">      return &quot;hello&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    return true;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">console.log(+obj2);     // 10      -- hint is &quot;number&quot;</span><br><span class="line">console.log(`$&#123;obj2&#125;`); // &quot;hello&quot; -- hint is &quot;string&quot;</span><br><span class="line">console.log(obj2 + &quot;&quot;); // &quot;true&quot;  -- hint is &quot;default&quot;</span><br></pre></td></tr></table></figure>
+<p>hint 有三个值，<code>number/string/default</code></p>
+<h4 id="2-7-正则表达式-Symbol"><a href="#2-7-正则表达式-Symbol" class="headerlink" title="2.7 正则表达式 Symbol"></a>2.7 正则表达式 Symbol</h4><ul>
+<li>Symbol.match</li>
+<li>Symbol.split</li>
+<li>Symbol.replace</li>
+<li>Symbol.search</li>
+</ul>
+<ol>
+<li><code>Symbol.match</code></li>
+</ol>
+<p>为 true 表明这个对象是正则表达式；为false表示这个对象当做字符串使用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&apos;/bar/&apos;.startsWith(/bar/) // TypeError: First argument to String.prototype.startsWith must not be a regular expression</span><br><span class="line"></span><br><span class="line">const re = /foo/;</span><br><span class="line">re[Symbol.match] = false;</span><br><span class="line">&apos;/foo/&apos;.startsWith(re); // true</span><br><span class="line">&apos;/bar/&apos;.startsWith(re); // false</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><code>Symbol.split</code><br>指向一个正则表达式的索引出分割字符串的方法</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const exp = &#123;</span><br><span class="line">    pattern: &apos;in&apos;,</span><br><span class="line">    [Symbol.split](str) &#123;</span><br><span class="line">        return str.split(this.pattern);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&apos;outinoutdayinday&apos;.split(exp); // [&quot;out&quot;, &quot;outday&quot;, &quot;day&quot;]</span><br></pre></td></tr></table></figure>
+<p>这样感觉没啥意义，因为直接用 <code>&#39;outinoutdayinday&#39;.split(&#39;in&#39;);</code>也没啥区别</p>
+<ol start="3">
+<li><code>Symbol.replace</code>/<code>Symbol.search</code></li>
+</ol>
+<p>一个替换匹配字符串的子串的方法.</p>
+<p>一个返回一个字符串中与正则表达式相匹配的索引的方法</p>
+<h3 id="三-总结"><a href="#三-总结" class="headerlink" title="三. 总结"></a>三. 总结</h3><p>Symbol 单独用感觉主要是用来消除魔法字符串的，也就是说项目中那些约定的字符串，但是在 Symbol.for(key) 中使用的 key 其实还是另外一种形式的魔法字符串，只能说这好像并不能完全避免魔法字符串的使用。</p>
+<p>公开符号主要是用于元编程的。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="http://es6.ruanyifeng.com/#docs/symbol" target="_blank" rel="noopener">ES6入门</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol" target="_blank" rel="noopener">MDN文档</a></li>
+</ul>
+
+                
+<p class="pink-link-context">
+    <a href="/2019/06/10/javascript-async/" rel="next" title="JS小技巧之 Async 异步控制\嵌套属性访问">
+    上一篇：JS小技巧之 Async 异步控制\嵌套属性访问
+  </a>
+</p>
+
+
+
+<p class="pink-link-context">
+    <a href="/2019/06/10/chrome-key/" rel="next" title="Chrome dev tools 小结">
+    下一篇：Chrome dev tools 小结
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1" data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer indigo darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="https://github.com/LouisWT" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2016 example.com, All rights reserved.
+            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

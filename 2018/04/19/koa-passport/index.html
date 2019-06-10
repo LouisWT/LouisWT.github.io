@@ -1,0 +1,754 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>Passport.js 源码阅读 | LouisWT 的技术博客</title>
+    <meta name="author" content="LouisWT">
+    
+    <meta name="description" content="Tech Blog">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="Passport.js 源码阅读">
+    <meta property="og:site_name" content="LouisWT 的技术博客">
+
+    
+    <meta property="og:image" content="">
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="LouisWT 的技术博客" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="indigo">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">LouisWT 的技术博客</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/">
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives">
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading">
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about">
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search">
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav indigo darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://louiswt.oss-cn-shenzhen.aliyuncs.com/pictures/avatar.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">刘文同</p>
+                        <p class="desc">Web前端/Web后台</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/">
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives">
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading">
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about">
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search">
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav indigo darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Chrome/">
+                    Chrome <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Mac/">
+                    Mac <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/JavaScript/">
+                    JavaScript <span class="right">6 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/JavaScript/ES6/">
+                    ES6 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/前端/">
+                    前端 <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/Canvas/">
+                    Canvas <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/状态管理/">
+                    状态管理 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/前端/状态管理/Redux/">
+                    Redux <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/Webpack/">
+                    Webpack <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/服务器端/">
+                    服务器端 <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/服务器端/Node-js/">
+                    Node-js <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/服务器端/Node-js/Koa/">
+                    Koa <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/服务器端渲染/">
+                    服务器端渲染 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/服务器端渲染/浏览器端渲染/">
+                    浏览器端渲染 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/VSCode/">
+                    VSCode <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/轻慕课/">
+                    轻慕课 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Vue/">
+                    Vue <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper indigo">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/服务器端/">服务器端</a><a class="breadcrumb" href="/categories/服务器端/Node-js/">Node.js</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>Passport.js 源码阅读</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2018-04-19T12:12:37.000Z"><a href="/2018/04/19/koa-passport/">2018-04-19</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/Koa/" class="chip pink lighten-1">Koa</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#一-基本使用"><span class="section table-of-contents-text">一. 基本使用</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#二-passport-js源码"><span class="section table-of-contents-text">二. passport.js源码</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#1-authenticator-js代码"><span class="section table-of-contents-text">1. authenticator.js代码</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-初始化一个passport对象后，现在看initialize方法"><span class="section table-of-contents-text">2. 初始化一个passport对象后，现在看initialize方法</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#3-authenticate方法"><span class="section table-of-contents-text">3. authenticate方法</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#三-总结"><span class="section table-of-contents-text">三. 总结</span></a></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <p>对一个网站应用而言，鉴权是非常重要的一点，<a href="http://www.passportjs.org/docs/downloads/html/" target="_blank" rel="noopener"><code>passport.js</code></a>就是为了解决这个问题诞生的。它抽象出了策略这个概念，可以根据不同的接口调用不同的鉴权策略。<br><a id="more"></a></p>
+<p>passport.js支持多种鉴权方式：</p>
+<ul>
+<li>username+password形式</li>
+<li><a href="https://www.biaodianfu.com/learn-openid.html" target="_blank" rel="noopener">OpenID鉴权</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html" target="_blank" rel="noopener">OAuth鉴权</a></li>
+<li>使用基础的策略包编写自己的策略</li>
+</ul>
+<h3 id="一-基本使用"><a href="#一-基本使用" class="headerlink" title="一. 基本使用"></a>一. 基本使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">const Koa = require(&apos;koa&apos;);</span><br><span class="line">const Router = require(&apos;koa-router&apos;);</span><br><span class="line">const passport = require(&apos;koa-passport&apos;);</span><br><span class="line">const CustomStrategy = require(&apos;passport-custom&apos;).Strategy;</span><br><span class="line"></span><br><span class="line">const app = new Koa();</span><br><span class="line">const router = new Router();</span><br><span class="line"></span><br><span class="line">passport.use(&apos;custom&apos;, new CustomStrategy((ctx, done) =&gt; &#123;</span><br><span class="line">  const &#123; authorization &#125; = ctx.headers;</span><br><span class="line">  if (authorization === &apos;token&apos;) &#123;</span><br><span class="line">    return done(null, &#123; user: 1 &#125;);</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    done(null, false);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line">const initialize = () =&gt; &#123;</span><br><span class="line">  return passport.initialize();</span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line">app.use(initialize());</span><br><span class="line"></span><br><span class="line">router.get(&apos;/&apos;, passport.authenticate(&apos;custom&apos;, &#123;</span><br><span class="line">  session: false</span><br><span class="line">&#125;), async (ctx, next) =&gt; &#123;</span><br><span class="line">  ctx.body = &apos;hello&apos;;</span><br><span class="line">  await next();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.use(router.routes());</span><br><span class="line"></span><br><span class="line">app.listen(3000);</span><br></pre></td></tr></table></figure>
+<p>注意，<strong>由于passport本身是针对express的，返回的中间件函数都是<code>req, res, next</code>形式</strong>，不能直接用于Koa框架，所以我们用的是<code>koa-passport</code>包，但是这个包其实还是依赖于 <code>passport</code>包，只是重写了一些方法，使它可以用于Koa框架。我们还是看<code>passport</code>包的代码，只是看到<code>res req</code>时自动替换成<code>ctx.request ctx.response</code>就好了</p>
+<h3 id="二-passport-js源码"><a href="#二-passport-js源码" class="headerlink" title="二. passport.js源码"></a>二. <code>passport.js</code>源码</h3><p><code>main</code>为<code>./lib/index.js</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var Passport = require(&apos;./authenticator&apos;)</span><br><span class="line">exports = module.exports = new Passport();</span><br></pre></td></tr></table></figure>
+<p>所以我们从<code>lib/authenticator</code>开始看</p>
+<h4 id="1-authenticator-js代码"><a href="#1-authenticator-js代码" class="headerlink" title="1. authenticator.js代码"></a>1. <code>authenticator.js</code>代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">module.exports = Authenticator;</span><br><span class="line"></span><br><span class="line">function Authenticator() &#123;</span><br><span class="line">  this._key = &apos;passport&apos;;</span><br><span class="line">  this._strategies = &#123;&#125;;</span><br><span class="line">  this._serializers = [];</span><br><span class="line">  this._deserializers = [];</span><br><span class="line">  this._infoTransformers = [];</span><br><span class="line">  this._framework = null;</span><br><span class="line">  this._userProperty = &apos;user&apos;;</span><br><span class="line">  </span><br><span class="line">  this.init();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Authenticator.prototype.init = function() &#123;</span><br><span class="line">  this.framework(require(&apos;./framework/connect&apos;)());</span><br><span class="line">  this.use(new SessionStrategy(this.deserializeUser.bind(this)));</span><br><span class="line">  this._sm = new SessionManager(&#123; key: this._key &#125;, this.serializeUser.bind(this));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><code>init</code>方法调用了<code>framework</code>和<code>use</code>方法</p>
+<ol>
+<li>先看<code>framework</code>方法</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Authenticator.prototype.framework = function(fw) &#123;</span><br><span class="line">  this._framework = fw;</span><br><span class="line">  return this;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// ./framework/connect</span><br><span class="line">var initialize = require(&apos;../middleware/initialize&apos;)</span><br><span class="line">  , authenticate = require(&apos;../middleware/authenticate&apos;);</span><br><span class="line"></span><br><span class="line">exports = module.exports = function() &#123;</span><br><span class="line">  </span><br><span class="line">  // HTTP extensions.</span><br><span class="line">  exports.__monkeypatchNode();</span><br><span class="line">  </span><br><span class="line">  return &#123;</span><br><span class="line">    initialize: initialize,</span><br><span class="line">    authenticate: authenticate</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><code>framework</code>方法就是对<code>this._framework</code>的初始化方法，经过这步之后，<code>this._framework</code>就有 <code>initialize</code> 和 <code>authenticate</code> 这两个方法了，这里先不管，之后调用的时候再看。</p>
+<ol start="2">
+<li>再看<code>this.use(new SessionStrategy(this.deserializeUser.bind(this)))</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">var SessionStrategy = require(&apos;./strategies/session&apos;);</span><br><span class="line"></span><br><span class="line">Authenticator.prototype.use = function(name, strategy) &#123;</span><br><span class="line">  if (!strategy) &#123;</span><br><span class="line">    strategy = name;</span><br><span class="line">    name = strategy.name;</span><br><span class="line">  &#125;</span><br><span class="line">  if (!name) &#123; throw new Error(&apos;Authentication strategies must have a name&apos;); &#125;</span><br><span class="line">  </span><br><span class="line">  this._strategies[name] = strategy;</span><br><span class="line">  return this;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// ./strategies/session</span><br><span class="line">function SessionStrategy(options, deserializeUser) &#123;</span><br><span class="line">  if (typeof options == &apos;function&apos;) &#123;</span><br><span class="line">    deserializeUser = options;</span><br><span class="line">    options = undefined;</span><br><span class="line">  &#125;</span><br><span class="line">  options = options || &#123;&#125;;</span><br><span class="line">  </span><br><span class="line">  Strategy.call(this);</span><br><span class="line">  this.name = &apos;session&apos;;</span><br><span class="line">  this._deserializeUser = deserializeUser;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这个应该就是初始化添加一个默认的策略，这个我感觉没啥用，因为一般都不会用它自带的session策略。</p>
+<p><strong>主要是use方法，这个方法在我们添加策略时也用到了</strong>，如调用<code>passport.use(&#39;custom&#39;, new CustomStrategy(...))</code>时，就在<code>this._strategy</code>对象添加一个键值对，键是’custom’，值是后面的 CustomStrategy。</p>
+<h4 id="2-初始化一个passport对象后，现在看initialize方法"><a href="#2-初始化一个passport对象后，现在看initialize方法" class="headerlink" title="2. 初始化一个passport对象后，现在看initialize方法"></a>2. 初始化一个passport对象后，现在看<code>initialize</code>方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Authenticator.prototype.initialize = function(options) &#123;</span><br><span class="line">  options = options || &#123;&#125;;</span><br><span class="line">  this._userProperty = options.userProperty || &apos;user&apos;;</span><br><span class="line">  </span><br><span class="line">  return this._framework.initialize(this, options);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这里调用了之前的<code>this._framework</code>中的<code>initialize</code>方法，这个方法定义是在<code>./middleware/initialize</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// ./middleware/initialize</span><br><span class="line">module.exports = function initialize(passport) &#123;</span><br><span class="line">  </span><br><span class="line">  return function initialize(req, res, next) &#123;</span><br><span class="line">    req._passport = &#123;&#125;;</span><br><span class="line">    req._passport.instance = passport;</span><br><span class="line"></span><br><span class="line">    if (req.session &amp;&amp; req.session[passport._key]) &#123;</span><br><span class="line">      // load data from existing session</span><br><span class="line">      req._passport.session = req.session[passport._key];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    next();</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>所以说之前的<code>return this._framework.initialize(this, options);</code>将options变量传进去有啥用呢，之后的函数就一个参数啊~</p>
+<p>这里是将之前的 Passport 实例 绑在 req上(在Koa框架中可以绑在 ctx上)，然后尝试取出请求中的session，应该是给默认的session策略用吧</p>
+<h4 id="3-authenticate方法"><a href="#3-authenticate方法" class="headerlink" title="3. authenticate方法"></a>3. <code>authenticate</code>方法</h4><p>添加完策略后，使用下面的代码，添加鉴权中间件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">router.get(&apos;/&apos;, passport.authenticate(&apos;custom&apos;, &#123;</span><br><span class="line">  session: false</span><br><span class="line">&#125;), async (ctx, next) =&gt; &#123;</span><br><span class="line">  ctx.body = &apos;hello&apos;;</span><br><span class="line">  await next();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 或</span><br><span class="line">app.use(passport.authenticate(&apos;custom&apos;), &#123; session: false &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>清晰起见，把之前的策略定义也放在这里<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">new CustomStrategy((req, done) =&gt; &#123;</span><br><span class="line">  const &#123; authorization &#125; = req.headers;</span><br><span class="line">  if (authorization === &apos;token&apos;) &#123;</span><br><span class="line">    return done(null, &#123; user: 1 &#125;);</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    done(null, false);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>下面就是<code>authenticate</code>方法部分的代码了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">Authenticator.prototype.authenticate = function(strategy, options, callback) &#123;</span><br><span class="line">  return this._framework.authenticate(this, strategy, options, callback);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// ./middleware/authenticate</span><br><span class="line">module.exports = function authenticate(passport, name, options, callback) &#123;</span><br><span class="line">  if (typeof options == &apos;function&apos;) &#123;</span><br><span class="line">    callback = options;</span><br><span class="line">    options = &#123;&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  options = options || &#123;&#125;;</span><br><span class="line">  </span><br><span class="line">  var multi = true;</span><br><span class="line">  </span><br><span class="line">  // 支持多个策略</span><br><span class="line">  if (!Array.isArray(name)) &#123;</span><br><span class="line">    name = [ name ];</span><br><span class="line">    multi = false;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  return function authenticate(req, res, next) &#123;</span><br><span class="line">    if (http.IncomingMessage.prototype.logIn</span><br><span class="line">        &amp;&amp; http.IncomingMessage.prototype.logIn !== IncomingMessageExt.logIn) &#123;</span><br><span class="line">      require(&apos;../framework/connect&apos;).__monkeypatchNode();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    var failures = [];</span><br><span class="line">    </span><br><span class="line">    // 错误处理</span><br><span class="line">    function allFailed() &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    (function attempt(i) &#123;</span><br><span class="line">      var layer = name[i];</span><br><span class="line">      // If no more strategies exist in the chain, authentication has failed.</span><br><span class="line">      if (!layer) &#123; return allFailed(); &#125;</span><br><span class="line">    </span><br><span class="line">      // 根据name取出策略</span><br><span class="line">      var prototype = passport._strategy(layer);</span><br><span class="line">      if (!prototype) &#123; return next(new Error(&apos;Unknown authentication strategy &quot;&apos; + layer + &apos;&quot;&apos;)); &#125;</span><br><span class="line">    </span><br><span class="line">      // 创建一个策略实例</span><br><span class="line">      var strategy = Object.create(prototype);</span><br><span class="line">      </span><br><span class="line">      strategy.success = function(user, info) &#123;</span><br><span class="line">        // 如果鉴权成功</span><br><span class="line">      &#125;;</span><br><span class="line">      </span><br><span class="line">      strategy.fail = function(challenge, status) &#123;</span><br><span class="line">        // 如果鉴权失败</span><br><span class="line">      &#125;;</span><br><span class="line">      </span><br><span class="line">      strategy.redirect = function(url, status) &#123;</span><br><span class="line">        // 重定向</span><br><span class="line">      &#125;;</span><br><span class="line">      </span><br><span class="line"></span><br><span class="line">      strategy.pass = function() &#123;</span><br><span class="line">        next();</span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line">      strategy.error = function(err) &#123;</span><br><span class="line">        // 出错</span><br><span class="line">      &#125;;</span><br><span class="line">      </span><br><span class="line">      // ----- END STRATEGY AUGMENTATION -----</span><br><span class="line">    </span><br><span class="line">      strategy.authenticate(req, options);</span><br><span class="line">    &#125;)(0); // attempt</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>再看看<code>CustomStrategy</code>的定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">// passport-strategy</span><br><span class="line">function Strategy() &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Strategy.prototype.authenticate = function(req, options) &#123;</span><br><span class="line">  throw new Error(&apos;Strategy#authenticate must be overridden by subclass&apos;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">module.exports = Strategy;</span><br><span class="line"></span><br><span class="line">// passport-custom</span><br><span class="line">function Strategy(verify) &#123;</span><br><span class="line">	if (!verify) &#123;</span><br><span class="line">		throw new TypeError(&apos;CustomStrategy requires a verify callback&apos;);</span><br><span class="line">	&#125;</span><br><span class="line">	passport.Strategy.call(this);</span><br><span class="line">	this.name = &apos;custom&apos;;</span><br><span class="line">	this._verify = verify;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">util.inherits(Strategy, passport.Strategy);</span><br><span class="line"></span><br><span class="line">Strategy.prototype.authenticate = function (req) &#123;</span><br><span class="line">	var self = this;</span><br><span class="line"></span><br><span class="line">	function verified(err, user, info) &#123;</span><br><span class="line">	    // 在这里调用了 authenticate 中给 strategy 定义的各种方法</span><br><span class="line">		if (err) &#123;</span><br><span class="line">			return self.error(err);</span><br><span class="line">		&#125;</span><br><span class="line">		if (!user) &#123;</span><br><span class="line">			return self.fail(info);</span><br><span class="line">		&#125;</span><br><span class="line">		self.success(user, info);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	try &#123;</span><br><span class="line">		this._verify(req, verified);</span><br><span class="line">	&#125; catch (ex) &#123;</span><br><span class="line">		return self.error(ex);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这是一个典型的适配器模式。用户只要将自己的函数 fn 作为参数传入<code>new CustomStrategy(fn)</code>，这个函数就被包装成了 passport 可以 use 的策略。</p>
+<p>当运行<code>passport.authenticate(name, options)</code>时，首先会根据name，取出对应的Strategy，然后调用 Strategy.authenticate()，这个函数会调用用户编写的策略，然后根据用户返回的信息，分别调用错误处理<code>Strategy.error()</code>或者鉴权失败<code>Strategy.fail()</code>或者鉴权成功<code>Strategy.success()</code>。</p>
+<p>这里的options可以传入如下配置：</p>
+<ul>
+<li>failureFlash: 出错时会在flash的信息。//这个在koa中需要在这之前调用其他插件才能实现，express可以直接传递</li>
+<li>failureMessage: 将报错信息放在session中返回 //同上</li>
+<li>failureRedirect: 报错后将网址重定向到新的网址，这个可以直接使用</li>
+<li>failWithError: 如果鉴权出错，后台是否会报错</li>
+<li>successFlash: Koa不能直接使用</li>
+<li>successMessage: Koa不能直接使用</li>
+<li>successRedirect： 成功后将网址重定向到新的网址，这个可以直接使用</li>
+<li>successReturnToOrRedirect：不能直接使用</li>
+<li>assignProperty：鉴权成功后，用户的信息挂在req的哪个属性下。// 在koa-passport包中是挂在ctx.state的哪个属性下</li>
+</ul>
+<h3 id="三-总结"><a href="#三-总结" class="headerlink" title="三. 总结"></a>三. 总结</h3><p>上面主要讲了Passport.js的设计思路，它将每个策略抽象成了一个 Strategy 类，每个Strategy类只要实现了authenticate方法，并在内部调用用户的具体实现，并针对成功失败出错三种情况调用success fail error方法，那么这个Strategy就能被用户使用。</p>
+<p>Passport.js 强大的地方还在于它有一个策略库，可以在里面搜到比较知名网站的许多鉴权策略，下载安装加一些配置就可以用了（遗憾的是高质量的策略都是国外公司滴）。</p>
+<p>最后不得不吐槽的就是这个包对 koa 的支持，<a href="https://github.com/jaredhanson/passport/issues/194" target="_blank" rel="noopener">作者 13 年就说会考虑对Koa的官方支持</a>，结果18年还是没信儿。但是的确这个包如果想直接支持koa很难，因为在authenticate中req res 和koa的 ctx 方法区别还是不少的。</p>
+<p>最后我发现通过<code>Authenticator.prototype.framework</code>方法，可以做到更换底层的 <code>initialize</code>和<code>authenticate</code>，所以我写了<a href="https://www.npmjs.com/package/passport-koa" target="_blank" rel="noopener"><code>passport-koa</code></a>模块来支持 Koa，相比之下<a href="https://www.npmjs.com/package/koa-passport" target="_blank" rel="noopener"><code>koa-passport</code></a>包是对原始的 passport.js 做了一个 wrapper，这个不光重写了那两个方法，还要托管别的方法。我觉得插件这种解决方案更优雅，欢迎大家使用。</p>
+
+                
+<p class="pink-link-context">
+    <a href="/2018/05/07/qingmooc-login/" rel="next" title="微信扫码登录(需先关注公众号)">
+    上一篇：微信扫码登录(需先关注公众号)
+  </a>
+</p>
+
+
+
+<p class="pink-link-context">
+    <a href="/2018/04/02/node-koa/" rel="next" title="Koa源码解读">
+    下一篇：Koa源码解读
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1" data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer indigo darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="https://github.com/LouisWT" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2016 example.com, All rights reserved.
+            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

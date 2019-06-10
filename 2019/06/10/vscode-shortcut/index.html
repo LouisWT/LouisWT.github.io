@@ -1,0 +1,1045 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>VSCode 快捷键与配置 | LouisWT 的技术博客</title>
+    <meta name="author" content="LouisWT">
+    
+    <meta name="description" content="Tech Blog">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="VSCode 快捷键与配置">
+    <meta property="og:site_name" content="LouisWT 的技术博客">
+
+    
+    <meta property="og:image" content="">
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="LouisWT 的技术博客" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="indigo">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">LouisWT 的技术博客</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/">
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives">
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading">
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about">
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search">
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav indigo darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://louiswt.oss-cn-shenzhen.aliyuncs.com/pictures/avatar.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">刘文同</p>
+                        <p class="desc">Web前端/Web后台</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/">
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives">
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading">
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about">
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search">
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav indigo darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Chrome/">
+                    Chrome <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Mac/">
+                    Mac <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/JavaScript/">
+                    JavaScript <span class="right">6 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/JavaScript/ES6/">
+                    ES6 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/前端/">
+                    前端 <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/Canvas/">
+                    Canvas <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/状态管理/">
+                    状态管理 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/前端/状态管理/Redux/">
+                    Redux <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/Webpack/">
+                    Webpack <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/服务器端/">
+                    服务器端 <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/服务器端/Node-js/">
+                    Node-js <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/服务器端/Node-js/Koa/">
+                    Koa <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/服务器端渲染/">
+                    服务器端渲染 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/服务器端渲染/浏览器端渲染/">
+                    浏览器端渲染 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/VSCode/">
+                    VSCode <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/轻慕课/">
+                    轻慕课 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Vue/">
+                    Vue <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper indigo">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/VSCode/">VSCode</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>VSCode 快捷键与配置</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2019-06-10T08:06:48.632Z"><a href="/2019/06/10/vscode-shortcut/">2019-06-10</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/VSCode/" class="chip pink lighten-1">VSCode</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#一-快捷键"><span class="section table-of-contents-text">一. 快捷键</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-界面相关"><span class="section table-of-contents-text">1. 界面相关</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2-编辑相关"><span class="section table-of-contents-text">2. 编辑相关</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#3-光标位置"><span class="section table-of-contents-text">3. 光标位置</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#4-插件相关"><span class="section table-of-contents-text">4. 插件相关</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1-Git-Project-Manager"><span class="section table-of-contents-text">1. Git Project Manager</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#2-npm"><span class="section table-of-contents-text">2. npm</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#3-open-in-browser"><span class="section table-of-contents-text">3. open in browser</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#5-emmet-入门用法"><span class="section table-of-contents-text">5. emmet 入门用法</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#二-插件列表"><span class="section table-of-contents-text">二. 插件列表</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-主题"><span class="section table-of-contents-text">1. 主题</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2-代码风格"><span class="section table-of-contents-text">2. 代码风格</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#3-调试"><span class="section table-of-contents-text">3. 调试</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#4-Git"><span class="section table-of-contents-text">4. Git</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#5-HTML-amp-CSS"><span class="section table-of-contents-text">5. HTML &amp; CSS</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#6-图片"><span class="section table-of-contents-text">6. 图片</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#7-Vue"><span class="section table-of-contents-text">7. Vue</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#8-React"><span class="section table-of-contents-text">8. React</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#9-MarkDown"><span class="section table-of-contents-text">9. MarkDown</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#7-其他"><span class="section table-of-contents-text">7. 其他</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#三-setting-json"><span class="section table-of-contents-text">三. setting.json</span></a></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <p>工欲善其事必先利其器, 这篇博文主要总结了VSCode 的常用快捷键和插件<br><a id="more"></a></p>
+<h1 id="一-快捷键"><a href="#一-快捷键" class="headerlink" title="一. 快捷键"></a>一. 快捷键</h1><h2 id="1-界面相关"><a href="#1-界面相关" class="headerlink" title="1. 界面相关"></a>1. 界面相关</h2><table>
+<thead>
+<tr>
+<th>用处</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>显示控制台</td>
+<td>ctrl + shift + p 或 F1</td>
+</tr>
+<tr>
+<td>快速打开文件</td>
+<td>ctrl + p</td>
+</tr>
+<tr>
+<td>关闭当前 tab</td>
+<td>ctrl + w</td>
+</tr>
+<tr>
+<td>切换当前显示的 tab</td>
+<td>alt + 1/2/3…</td>
+</tr>
+<tr>
+<td>上一个编辑的 tab</td>
+<td>alt + left</td>
+</tr>
+<tr>
+<td>下一个编辑的 tab</td>
+<td>alt + right</td>
+</tr>
+<tr>
+<td>全屏</td>
+<td>F11 (全屏模式下点击 alt 显示最上方的菜单栏)</td>
+</tr>
+<tr>
+<td>侧边栏是否可见</td>
+<td>ctrl + b</td>
+</tr>
+<tr>
+<td>打开终端,如果没有会新建</td>
+<td>ctrl + `</td>
+</tr>
+<tr>
+<td>新建终端</td>
+<td>ctrl + shift + `</td>
+</tr>
+<tr>
+<td>是否显示下方面板</td>
+<td>ctrl + j</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-编辑相关"><a href="#2-编辑相关" class="headerlink" title="2. 编辑相关"></a>2. 编辑相关</h2><table>
+<thead>
+<tr>
+<th>用处</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>块注释（需要手动设置）</td>
+<td>ctrl + shift + /</td>
+</tr>
+<tr>
+<td>行注释</td>
+<td>ctrl + /</td>
+</tr>
+<tr>
+<td>删除一行</td>
+<td>ctrl + d</td>
+</tr>
+<tr>
+<td>剪切当前行（选中情况下剪切选中内容）</td>
+<td>ctrl + x</td>
+</tr>
+<tr>
+<td>复制当前行（选中情况下复制选中内容）</td>
+<td>ctrl + c</td>
+</tr>
+<tr>
+<td>粘贴</td>
+<td>ctrl + v</td>
+</tr>
+<tr>
+<td>向上/下移动行</td>
+<td>alt + up/down</td>
+</tr>
+<tr>
+<td>向上/下复制行</td>
+<td>alt + shift + up/down</td>
+</tr>
+<tr>
+<td>在当前行的下一行添加一行</td>
+<td>ctrl + enter</td>
+</tr>
+<tr>
+<td>在当前行的上一行添加一行</td>
+<td>ctrl + shift + enter</td>
+</tr>
+<tr>
+<td>折叠一块代码区域</td>
+<td>ctrl + shift + [</td>
+</tr>
+<tr>
+<td>展开一块代码区域</td>
+<td>ctrl + shift + ]</td>
+</tr>
+<tr>
+<td>行向前/向后缩进</td>
+<td>ctrl + [ 和 ctrl + ]</td>
+</tr>
+<tr>
+<td>查找</td>
+<td>ctrl + f</td>
+</tr>
+<tr>
+<td>查找下一个</td>
+<td>F3</td>
+</tr>
+<tr>
+<td>查找上一个</td>
+<td>shift + F3</td>
+</tr>
+<tr>
+<td>替换</td>
+<td>ctrl + h</td>
+</tr>
+<tr>
+<td>查看文件中对变量的初始引用</td>
+<td>shift + F12</td>
+</tr>
+<tr>
+<td>弹窗查看变量定义</td>
+<td>alt + F12</td>
+</tr>
+<tr>
+<td>跳转到变量定义</td>
+<td>F12</td>
+</tr>
+<tr>
+<td>变量名替换</td>
+<td>光标位于变量名 + F2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-光标位置"><a href="#3-光标位置" class="headerlink" title="3. 光标位置"></a>3. 光标位置</h2><table>
+<thead>
+<tr>
+<th>用处</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>在上/下一行添加光标（windows 下需要关闭显卡快捷键）</td>
+<td>ctrl + alt + up/down</td>
+</tr>
+<tr>
+<td>光标转到括号</td>
+<td>ctrl + shift + \</td>
+</tr>
+<tr>
+<td>光标转到第多少行</td>
+<td>ctrl + g</td>
+</tr>
+<tr>
+<td>选中当前行</td>
+<td>ctrl + l</td>
+</tr>
+<tr>
+<td>光标到行首</td>
+<td>home</td>
+</tr>
+<tr>
+<td>光标到行尾</td>
+<td>end</td>
+</tr>
+<tr>
+<td>光标到文件首</td>
+<td>ctrl + home</td>
+</tr>
+<tr>
+<td>光标到文件尾</td>
+<td>ctrl + end</td>
+</tr>
+<tr>
+<td>光标左/右移一个词</td>
+<td>ctrl + left/right</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-插件相关"><a href="#4-插件相关" class="headerlink" title="4. 插件相关"></a>4. 插件相关</h2><h3 id="1-Git-Project-Manager"><a href="#1-Git-Project-Manager" class="headerlink" title="1. Git Project Manager"></a>1. Git Project Manager</h3><table>
+<thead>
+<tr>
+<th>用处</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>打开某个 Git 仓库</td>
+<td>ctrl + alt + p</td>
+</tr>
+<tr>
+<td>新窗口打开某个 Git 仓库</td>
+<td>ctrl + alt + n</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-npm"><a href="#2-npm" class="headerlink" title="2. npm"></a>2. npm</h3><table>
+<thead>
+<tr>
+<th>用处</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>终端运行 npm script 命令</td>
+<td>ctrl + r shift + r</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-open-in-browser"><a href="#3-open-in-browser" class="headerlink" title="3. open in browser"></a>3. open in browser</h3><table>
+<thead>
+<tr>
+<th>用处</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>在浏览器打开当前文件</td>
+<td>alt + b</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-emmet-入门用法"><a href="#5-emmet-入门用法" class="headerlink" title="5. emmet 入门用法"></a>5. emmet 入门用法</h2><ul>
+<li>E/N 代表一个标签,比如 <code>div</code></li>
+<li>CLASS 代表一个类名,比如 container</li>
+<li>ID 代表一个ID</li>
+<li>ARRT 代表一个元素属性,比如 width</li>
+<li>TEXT 代表文字内容</li>
+<li>NUM 代表一个数字</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>用处</th>
+<th>快捷写法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>html:5</td>
+<td>表示生成一个 HTML5的文档骨架</td>
+</tr>
+<tr>
+<td>E&gt;N</td>
+<td>表示E是N的父元素</td>
+</tr>
+<tr>
+<td>E+N</td>
+<td>表示E是N的同级元素</td>
+</tr>
+<tr>
+<td>E^N</td>
+<td>表示E是N的子元素</td>
+</tr>
+<tr>
+<td>E.CLASS</td>
+<td>class 为 CLASS 的E元素</td>
+</tr>
+<tr>
+<td>E#ID</td>
+<td>id 为 ID 的E元素</td>
+</tr>
+<tr>
+<td>E[ATTR=foo]</td>
+<td>指定ATTR 属性的 E 元素</td>
+</tr>
+<tr>
+<td>E{TEXT}</td>
+<td>内容是TEXT 的E元素</td>
+</tr>
+<tr>
+<td>E*NUM</td>
+<td>连续生成 NUM 个 E 元素</td>
+</tr>
+<tr>
+<td>E.item$$@STA*NUM</td>
+<td>自动计数,NUM 个E元素的类名分别是item01 item02… (这里假设 STA 是1了)</td>
+</tr>
+</tbody>
+</table>
+<h1 id="二-插件列表"><a href="#二-插件列表" class="headerlink" title="二. 插件列表"></a>二. 插件列表</h1><h2 id="1-主题"><a href="#1-主题" class="headerlink" title="1. 主题"></a>1. 主题</h2><ul>
+<li>One Dark Pro: 颜色主题</li>
+<li>Material Icon Theme: 文件图标主题</li>
+<li>Bracket Pair Colorizer</li>
+<li>Indent-Rainbow: 使用颜色表示缩进的多少，更直观</li>
+<li>TODO Highlight: 高亮 TODO 之类的注释</li>
+<li>Trailing Spaces: 高亮多余的空格</li>
+</ul>
+<h2 id="2-代码风格"><a href="#2-代码风格" class="headerlink" title="2. 代码风格"></a>2. 代码风格</h2><ul>
+<li>Beautify</li>
+<li>ESLint</li>
+</ul>
+<h2 id="3-调试"><a href="#3-调试" class="headerlink" title="3. 调试"></a>3. 调试</h2><ul>
+<li>Debugger for Chrome</li>
+<li>open in browser</li>
+</ul>
+<h2 id="4-Git"><a href="#4-Git" class="headerlink" title="4. Git"></a>4. Git</h2><ul>
+<li>GitLens</li>
+<li>Git Project Manager</li>
+<li>Git History</li>
+</ul>
+<h2 id="5-HTML-amp-CSS"><a href="#5-HTML-amp-CSS" class="headerlink" title="5. HTML &amp; CSS"></a>5. HTML &amp; CSS</h2><ul>
+<li>HTML Snippets</li>
+<li>HTML CSS Support</li>
+<li>IntelliSense for CSS class names in HTML: 根据引用的 CSS文件，对HTML的类名进行补全</li>
+</ul>
+<h2 id="6-图片"><a href="#6-图片" class="headerlink" title="6. 图片"></a>6. 图片</h2><ul>
+<li>SVG viewer: 查看 SVG 图片</li>
+</ul>
+<h2 id="7-Vue"><a href="#7-Vue" class="headerlink" title="7. Vue"></a>7. Vue</h2><ul>
+<li>Vetur</li>
+<li>Vue 2 Snippets</li>
+</ul>
+<h2 id="8-React"><a href="#8-React" class="headerlink" title="8. React"></a>8. React</h2><ul>
+<li>ES7 React/Redux/GraphQL/React-Native snippets</li>
+</ul>
+<h2 id="9-MarkDown"><a href="#9-MarkDown" class="headerlink" title="9. MarkDown"></a>9. MarkDown</h2><ul>
+<li>Markdown All in One</li>
+</ul>
+<h2 id="7-其他"><a href="#7-其他" class="headerlink" title="7. 其他"></a>7. 其他</h2><ul>
+<li>npm</li>
+<li>npm Intellisense</li>
+<li>filesize</li>
+<li>Import Cost</li>
+<li>path Intellisense</li>
+<li>RegExp Preview and Editor</li>
+</ul>
+<h1 id="三-setting-json"><a href="#三-setting-json" class="headerlink" title="三. setting.json"></a>三. setting.json</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;editor.tabSize&quot;: 2,</span><br><span class="line">    &quot;emmet.includeLanguages&quot;: &#123;</span><br><span class="line">        &quot;javascript&quot;: &quot;javascriptreact&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;emmet.triggerExpansionOnTab&quot;: true,</span><br><span class="line">    &quot;workbench.iconTheme&quot;: &quot;material-icon-theme&quot;,</span><br><span class="line">    &quot;window.zoomLevel&quot;: 2,</span><br><span class="line">    &quot;git.autofetch&quot;: true,</span><br><span class="line">    &quot;terminal.integrated.shell.windows&quot;: &quot;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe&quot;,</span><br><span class="line">    &quot;files.autoSave&quot;: &quot;afterDelay&quot;,</span><br><span class="line">    &quot;workbench.statusBar.feedback.visible&quot;: false,</span><br><span class="line">    &quot;workbench.colorTheme&quot;: &quot;One Dark Pro&quot;,</span><br><span class="line">    &quot;editor.lineHeight&quot;: 22,</span><br><span class="line">    &quot;indentRainbow.colors&quot;: [</span><br><span class="line">        &quot;#4040401a&quot;,</span><br><span class="line">        &quot;#8080801a&quot;,</span><br><span class="line">        &quot;#C0C0C01a&quot;,</span><br><span class="line">        &quot;#ffffff1a&quot;,</span><br><span class="line">        &quot;#C0C0C01a&quot;,</span><br><span class="line">        &quot;#8080801a&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;gitProjectManager.baseProjectsFolders&quot;: [</span><br><span class="line">        &quot;D:\\WorkSpace\\GitRepo&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;editor.suggestSelection&quot;: &quot;first&quot;,</span><br><span class="line">    &quot;vsintellicode.modify.editor.suggestSelection&quot;: &quot;automaticallyOverrodeDefaultValue&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+                
+<p class="pink-link-context">
+    <a href="/2019/06/10/vue-base/" rel="next" title="Vue 学习笔记一">
+    上一篇：Vue 学习笔记一
+  </a>
+</p>
+
+
+
+<p class="pink-link-context">
+    <a href="/2019/06/10/render/" rel="next" title="Web渲染小结">
+    下一篇：Web渲染小结
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1" data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer indigo darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="https://github.com/LouisWT" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2016 example.com, All rights reserved.
+            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

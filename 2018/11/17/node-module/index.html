@@ -1,0 +1,764 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>模块加载原理与 module 源码阅读 | LouisWT 的技术博客</title>
+    <meta name="author" content="LouisWT">
+    
+    <meta name="description" content="Tech Blog">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="模块加载原理与 module 源码阅读">
+    <meta property="og:site_name" content="LouisWT 的技术博客">
+
+    
+    <meta property="og:image" content="">
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="LouisWT 的技术博客" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="indigo">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">LouisWT 的技术博客</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/">
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives">
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading">
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about">
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search">
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav indigo darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://louiswt.oss-cn-shenzhen.aliyuncs.com/pictures/avatar.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">刘文同</p>
+                        <p class="desc">Web前端/Web后台</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/">
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives">
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading">
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about">
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search">
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav indigo darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Chrome/">
+                    Chrome <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Mac/">
+                    Mac <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/JavaScript/">
+                    JavaScript <span class="right">6 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/JavaScript/ES6/">
+                    ES6 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/前端/">
+                    前端 <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/Canvas/">
+                    Canvas <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/状态管理/">
+                    状态管理 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/前端/状态管理/Redux/">
+                    Redux <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/Webpack/">
+                    Webpack <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/服务器端/">
+                    服务器端 <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/服务器端/Node-js/">
+                    Node-js <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/服务器端/Node-js/Koa/">
+                    Koa <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/服务器端渲染/">
+                    服务器端渲染 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/服务器端渲染/浏览器端渲染/">
+                    浏览器端渲染 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/VSCode/">
+                    VSCode <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/轻慕课/">
+                    轻慕课 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Vue/">
+                    Vue <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper indigo">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/服务器端/">服务器端</a><a class="breadcrumb" href="/categories/服务器端/Node-js/">Node.js</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>模块加载原理与 module 源码阅读</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2018-11-17T12:12:37.000Z"><a href="/2018/11/17/node-module/">2018-11-17</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/Node-js/" class="chip pink lighten-1">Node.js</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#一-Node-js-模块类型"><span class="section table-of-contents-text">一. Node.js 模块类型</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#1-C-核心模块"><span class="section table-of-contents-text">1. C++核心模块</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-Node-js-内置模块"><span class="section table-of-contents-text">2. Node.js 内置模块</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#3-用户源码模块"><span class="section table-of-contents-text">3. 用户源码模块</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#用户源码模块载入流程："><span class="section table-of-contents-text">用户源码模块载入流程：</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#入口模块"><span class="section table-of-contents-text">入口模块</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#4-C-扩展"><span class="section table-of-contents-text">4. C++扩展</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#总结"><span class="section table-of-contents-text">总结</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#参考"><span class="section table-of-contents-text">参考</span></a></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <ul>
+<li>核心模块：<ul>
+<li>C++ 核心模块</li>
+<li>Node.js 内置模块</li>
+</ul>
+</li>
+<li>文件模块：<ul>
+<li>用户源码模块</li>
+<li>C++ 扩展</li>
+</ul>
+</li>
+</ul>
+<p>C++ 核心模块与C++ 扩展的主要区别在于核心模块在 Node 源码中，并且编译进 Node.js 的可执行二进制文件中；C++扩展以动态链接库的形式存在<br><a id="more"></a></p>
+<h3 id="一-Node-js-模块类型"><a href="#一-Node-js-模块类型" class="headerlink" title="一. Node.js 模块类型"></a>一. Node.js 模块类型</h3><h4 id="1-C-核心模块"><a href="#1-C-核心模块" class="headerlink" title="1. C++核心模块"></a>1. C++核心模块</h4><ul>
+<li>http-parser 解析http报文 </li>
+<li>openSSL 安全套接字层协议库</li>
+<li>zlib 数据压缩库</li>
+<li>等等</li>
+</ul>
+<h4 id="2-Node-js-内置模块"><a href="#2-Node-js-内置模块" class="headerlink" title="2. Node.js 内置模块"></a>2. Node.js 内置模块</h4><p>lib 文件夹下的 js 文件就是一个个的 Node 内置模块。</p>
+<h4 id="3-用户源码模块"><a href="#3-用户源码模块" class="headerlink" title="3. 用户源码模块"></a>3. 用户源码模块</h4><p>用户源码模块就是用户在Node项目中的JS源码和第三方包的模块。这些模块是在程序运行时，在需要时被 require 函数加载的。</p>
+<p><strong>平时在源码中使用的 require() 其实就是 lib/module.js 中的 Module 类实例对象的 require()</strong></p>
+<blockquote>
+<p>一个 Module类的实例对象就是一个用户源码模块，用户通过 require() 引入的文件代码与其在 vm 沙盒中的结果就是这个模块的核心。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// lib/module.js</span><br><span class="line">Module.prototype.require = function(path) &#123;</span><br><span class="line">  assert(path, &apos;missing path&apos;);</span><br><span class="line">  assert(typeof path === &apos;string&apos;, &apos;path must be a string&apos;);</span><br><span class="line">  return Module._load(path, this, /* isMain */ false);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>require 函数调用了 _load()，并声明 isMain 为 false(不是入口模块)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">// lib/module.js</span><br><span class="line">Module._load = function(request, parent, isMain) &#123;</span><br><span class="line">  ...</span><br><span class="line">  </span><br><span class="line">  var filename = Module._resolveFilename(request, parent, isMain);</span><br><span class="line">  var cachedModule = Module._cache[filename];</span><br><span class="line">  </span><br><span class="line">  // 1. 如果 module 已经在缓存中了，直接返回它的 exports 对象</span><br><span class="line">  if (cachedModule) &#123;</span><br><span class="line">    return cachedModule.exports;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  // 2. 如果是原生模块，使用 NativeModule.require，并返回结果</span><br><span class="line">  if (NativeModule.nonInternalExists(filename)) &#123;</span><br><span class="line">    debug(&apos;load native module %s&apos;, request);</span><br><span class="line">    return NativeModule.require(filename);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  // 3. 创建一个module对象，并存入缓存</span><br><span class="line">  var module = new Module(filename, parent);</span><br><span class="line">  </span><br><span class="line">  // 4. 如果是入口模块，进行标记</span><br><span class="line">  if (isMain) &#123;</span><br><span class="line">    process.mainModule = module;</span><br><span class="line">    module.id = &apos;.&apos;;</span><br><span class="line">  &#125;</span><br><span class="line">  Module._cache[filename] = module;</span><br><span class="line">  </span><br><span class="line">  // 5. 加载模块</span><br><span class="line">  tryModuleLoad(module, filename);</span><br><span class="line">  </span><br><span class="line">  return module.exports;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以上代码大致是注释的五步，第五步调用了 tryModuleLoad 函数来加载模块。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function tryModuleLoad(module, filename) &#123;</span><br><span class="line">  var threw = true;</span><br><span class="line">  try &#123;</span><br><span class="line">    // 有错就抛出错误</span><br><span class="line">    module.load(filename);</span><br><span class="line">    threw = false;</span><br><span class="line">  &#125; finally &#123;</span><br><span class="line">    // 如果有错那就从缓存中去除错误module对象</span><br><span class="line">    if (threw) &#123;</span><br><span class="line">      delete Module._cache[filename];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>tryModuleLoad 调用了 load()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Module.prototype.load = function(filename) &#123;</span><br><span class="line">  this.filename = filename;</span><br><span class="line">  this.paths = Module._nodeModulePaths(path.dirname(filename));</span><br><span class="line"></span><br><span class="line">  var extension = path.extname(filename) || &apos;.js&apos;;</span><br><span class="line">  if (!Module._extensions[extension]) extension = &apos;.js&apos;;</span><br><span class="line">  Module._extensions[extension](this, filename);</span><br><span class="line">  this.loaded = true;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>load 函数会根据不同的文件后缀名使用不同的载入规则。</p>
+<ul>
+<li>js: Module._extensions[‘.js’]</li>
+<li>json: Module._extensions[‘.json’]</li>
+<li>node: Module._extensions[‘.node’]</li>
+</ul>
+<p>这里看用户模块，所以主要看下 js 的载入规则<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Module._extensions[&apos;.js&apos;] = function(module, filename) &#123;</span><br><span class="line">  </span><br><span class="line">  // 1. 同步读取源码的内容</span><br><span class="line">  var content = fs.readFileSync(filename, &apos;utf8&apos;);</span><br><span class="line">  </span><br><span class="line">  // 2. 调用 module._compile() 编译源码</span><br><span class="line">  module._compile(internalModule.stripBOM(content), filename);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>调用了 module._compile() 来编译代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Module.wrap = NativeModule.wrap;</span><br><span class="line">...</span><br><span class="line">Module.prototype._compile = function(content, filename) &#123;</span><br><span class="line">    ...</span><br><span class="line">    // 1. 创建闭包源码</span><br><span class="line">    var wrapper = Module.wrap(content);</span><br><span class="line">    </span><br><span class="line">    // 2. 用 vm 编译 wrapper</span><br><span class="line">    var compiledWrapper = vm.runInThisContext(wrapper, &#123;</span><br><span class="line">        filename: filename,</span><br><span class="line">        lineOffset: 0,</span><br><span class="line">        displayErrors: true</span><br><span class="line">    &#125;);</span><br><span class="line">    ...</span><br><span class="line">    var dirname = path.dirname(filename);</span><br><span class="line">    var require = internalModule.makeRequireFunction.call(this);</span><br><span class="line">    var args = [this.exports, require, this, filename, dirname];</span><br><span class="line">    var depth = internalModule.requireDepth;</span><br><span class="line">    if (depth === 0) stat.cache = new Map();</span><br><span class="line">    // 3. 传入参数执行 vm </span><br><span class="line">    var result = compiledWrapper.apply(this.exports, args);</span><br><span class="line">    if (depth === 0) stat.cache = null;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个模块经过闭包化之后，就变成了接受 exports、require、module、__filename、__dirname的闭包函数，类似<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(function(exports, require, module, __filename, __dirname)&#123;</span><br><span class="line">    // 用户模块源码</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>这就是为什么可以在代码中直接使用 exports module require 的原因。</p>
+<p>这个闭包只在第一次加载模块时执行了一次，之后就一直存在在模块缓存中，只要不手动清除缓存，就不会重新加载这个模块。所以模块逻辑代码只会被执行一次。</p>
+<p>注意，五个参数中的 module 就是 Module 类的对象实例，所以对 module.exports 赋值实际上就是对传入的 module 对象进行赋值。参数中的 require 函数就是包装后的 Module.prototype.require</p>
+<h5 id="用户源码模块载入流程："><a href="#用户源码模块载入流程：" class="headerlink" title="用户源码模块载入流程："></a>用户源码模块载入流程：</h5><ol>
+<li>开发者在代码中调用 require()，这相当于调用 Module._load</li>
+<li>如果有缓存，直接返回 module.exports</li>
+<li>如果没有缓存，闭包化对应文件的源码，传入 exports、require、module、__filename、__dirname 参数执行</li>
+<li>对应文件中代码中往往会对 module.exports 或者 exports 进行赋值</li>
+<li>Module._load 返回新建 module 的 exports 给上游</li>
+</ol>
+<h5 id="入口模块"><a href="#入口模块" class="headerlink" title="入口模块"></a>入口模块</h5><p>入口模块指在命令行执行 node <filename> 时，指定的文件。</filename></p>
+<p>入口模块调用方式： <code>Module._load(process.argv[1], null, true)</code></p>
+<p>相对于其他模块的require函数，第一个参数变成了处理过后的命令行参数(转化为了绝对路径)；第二个 parent 参数变为 null，因为入口模块没有父模块；第三个参数变为 true，生成的 module 会赋值给 process.mainModule</p>
+<h4 id="4-C-扩展"><a href="#4-C-扩展" class="headerlink" title="4. C++扩展"></a>4. C++扩展</h4><p>用户模块(.js)和C++扩展模块(.node)加载时的区别在于 Module.prototype.load  函数会根据不同的文件后缀名使用不同的载入规则</p>
+<p>现在看一下<code>Module._extensions[&#39;node&#39;]</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Module._extensions[&apos;.node&apos;] = function(module, filename) &#123;</span><br><span class="line">  // 加载 .node 模块</span><br><span class="line">  return process.dlopen(module, path._makeLong(filename));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li>C++ 核心模块会通过 <code>NODE_MODULE_CONTEXT_AWARE_BUILTIN</code>等宏将不同模块注册进 Node.js C++ 核心模块链表中</li>
+<li>Node.js 内置模块会在Node 编译时被写入 C++ 源码中并被编译到 Node 的可执行二进制文件中，并在合适时机(被 requrire 时)闭包化导出</li>
+<li>用户源码模块会在首次执行 require 时被读取源码并闭包化导出，然后再加入模块缓存中</li>
+<li>C++ 拓展会在首次执行 require 时通过 uv_dlopen 加载该扩展.node 文件(动态链接库文件)，在链接库内部把模块注册函数赋值给 modepending，然后将执行 require 时传入的 module 和 exports 两个对象传入模块注册函数进行导出。</li>
+</ul>
+<p>这四个模块加载原理我目前就 用户源码模块 的加载原理是理解最清楚的，其他模块的加载过程都涉及了C++代码，我不是很会 C++，所以只有一个感性的认识。抽空还是应该好好学学C++啊！</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://book.douban.com/subject/30247892/" target="_blank" rel="noopener">来一打Node.js C++ 扩展</a></li>
+<li><a href="http://www.alloyteam.com/2015/04/xiang-jie-nodejs-di-vm-mo-kuai/" target="_blank" rel="noopener">详解 Node.js vm模块</a></li>
+</ul>
+
+                
+<p class="pink-link-context">
+    <a href="/2018/12/20/frontend-enforce/" rel="next" title="Webpack 与网站性能优化">
+    上一篇：Webpack 与网站性能优化
+  </a>
+</p>
+
+
+
+<p class="pink-link-context">
+    <a href="/2018/10/17/redux-middleware/" rel="next" title="理解 Redux 中间件机制">
+    下一篇：理解 Redux 中间件机制
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1" data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer indigo darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="https://github.com/LouisWT" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2016 example.com, All rights reserved.
+            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

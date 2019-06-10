@@ -1,0 +1,736 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>fabric.js 入门 | LouisWT 的技术博客</title>
+    <meta name="author" content="LouisWT">
+    
+    <meta name="description" content="Tech Blog">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="fabric.js 入门">
+    <meta property="og:site_name" content="LouisWT 的技术博客">
+
+    
+    <meta property="og:image" content="">
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="LouisWT 的技术博客" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="indigo">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">LouisWT 的技术博客</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/">
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives">
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading">
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about">
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search">
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav indigo darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://louiswt.oss-cn-shenzhen.aliyuncs.com/pictures/avatar.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">刘文同</p>
+                        <p class="desc">Web前端/Web后台</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/">
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives">
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading">
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about">
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search">
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav indigo darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Chrome/">
+                    Chrome <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Mac/">
+                    Mac <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/JavaScript/">
+                    JavaScript <span class="right">6 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/JavaScript/ES6/">
+                    ES6 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/前端/">
+                    前端 <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/Canvas/">
+                    Canvas <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/状态管理/">
+                    状态管理 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/前端/状态管理/Redux/">
+                    Redux <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/Webpack/">
+                    Webpack <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/服务器端/">
+                    服务器端 <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/服务器端/Node-js/">
+                    Node-js <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/服务器端/Node-js/Koa/">
+                    Koa <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/服务器端渲染/">
+                    服务器端渲染 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/服务器端渲染/浏览器端渲染/">
+                    浏览器端渲染 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/VSCode/">
+                    VSCode <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/轻慕课/">
+                    轻慕课 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Vue/">
+                    Vue <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper indigo">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/前端/">前端</a><a class="breadcrumb" href="/categories/前端/Canvas/">Canvas</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>fabric.js 入门</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2018-06-17T11:02:37.000Z"><a href="/2018/06/17/fabric/">2018-06-17</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/fabric-js/" class="chip pink lighten-1">fabric.js</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-为什么要使用-Fabric-js"><span class="section table-of-contents-text">1. 为什么要使用 Fabric.js</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1-1-画矩形的对比"><span class="section table-of-contents-text">1.1 画矩形的对比</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1-2-加45度旋转的对比"><span class="section table-of-contents-text">1.2 加45度旋转的对比</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1-3-移动矩形的对比"><span class="section table-of-contents-text">1.3 移动矩形的对比</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2-对象模型"><span class="section table-of-contents-text">2 对象模型</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#2-1-对象属性"><span class="section table-of-contents-text">2.1 对象属性</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#2-2-继承关系"><span class="section table-of-contents-text">2.2 继承关系</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#3-fabric-Canvas"><span class="section table-of-contents-text">3. fabric.Canvas</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#3-1-Canvas-与-StaticCanvas-的不同与联系"><span class="section table-of-contents-text">3.1 Canvas 与 StaticCanvas 的不同与联系</span></a></li></ol></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <p>html5 的 canvas 元素可以实现许多惊艳的效果，但是使用原生canvas开发十分痛苦，因为canvas的绘制api是非常低级的，在绘制时需要运用各种技巧，并且代码的逻辑性也不够强。</p>
+<p>fabric.js 是一个 Canvas 的高级抽象库，它提供了 canvas 没有的对象模型、SVG解析器、交互层以及一些工具。<br><a id="more"></a></p>
+<h2 id="1-为什么要使用-Fabric-js"><a href="#1-为什么要使用-Fabric-js" class="headerlink" title="1. 为什么要使用 Fabric.js"></a>1. 为什么要使用 Fabric.js</h2><p>编写原生的 canvas 非常痛苦，因为原生 canvas 提供的 api 比较低级，是一些简单的图形命令。比如画一个矩形，使用<code>fillRect(left, top, width, height)</code>；画一条线，使用<code>moveTo(left, top)</code> 和 <code>lineTo(left, top)</code>，这些 api 让我们编写程序就像画画，需要一步一步地画，没有一个更高级的抽象。</p>
+<p>Fabric 在原生方法的基础之上提供了简单强大的对象模型。Fabric 使我们可以直接使用对象来进行绘制操作。</p>
+<h3 id="1-1-画矩形的对比"><a href="#1-1-画矩形的对比" class="headerlink" title="1.1 画矩形的对比"></a>1.1 画矩形的对比</h3><p>下面是使用原生 Canvas 和 Fabric 画一个矩形的对比：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 使用原生 Canvas 画一个矩形</span></span><br><span class="line"><span class="comment">// 获取 canvas 元素</span></span><br><span class="line"><span class="keyword">var</span> canvasEl = <span class="built_in">document</span>.getElementById(<span class="string">'canvas'</span>);</span><br><span class="line"><span class="comment">// 2d 画布</span></span><br><span class="line"><span class="keyword">var</span> ctx = canvasEl.getContext(<span class="string">'2d'</span>);</span><br><span class="line"><span class="comment">// 填充颜色</span></span><br><span class="line">ctx.fillStyle = <span class="string">'red'</span>;</span><br><span class="line"><span class="comment">// 在 100，100 处画一个 20*20 的矩形</span></span><br><span class="line">ctx.fillRect(<span class="number">100</span>, <span class="number">100</span>, <span class="number">20</span>, <span class="number">20</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 使用 fabric</span></span><br><span class="line"><span class="comment">// 给原生的 canvas 创建一个 wrapper</span></span><br><span class="line"><span class="keyword">var</span> canvas = <span class="keyword">new</span> fabric.Canvas(<span class="string">'canvas'</span>);</span><br><span class="line"><span class="comment">// 创建一个 100,100 处 20*20，填充颜色为红色的矩形</span></span><br><span class="line"><span class="keyword">var</span> rect = <span class="keyword">new</span> fabric.Rect(&#123;</span><br><span class="line">  left: <span class="number">100</span>,</span><br><span class="line">  top: <span class="number">100</span>,</span><br><span class="line">  fill: <span class="string">'red'</span>,</span><br><span class="line">  width: <span class="number">20</span>,</span><br><span class="line">  height: <span class="number">20</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 向画布中添加矩形</span></span><br><span class="line">canvas.add(rect);</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，原生canvas的绘制主要使用 2d context 的 api，而 fabric 则是使用对象进行绘制：实例化一个矩形，设置对应的属性，将矩形加入画布。</p>
+<h3 id="1-2-加45度旋转的对比"><a href="#1-2-加45度旋转的对比" class="headerlink" title="1.2 加45度旋转的对比"></a>1.2 加45度旋转的对比</h3><p>目前看上去，fabric 的方式尽管看上去更直观，但是没有省多少代码，下面加一个旋转45度的效果<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 原生方式</span></span><br><span class="line"><span class="keyword">var</span> canvasEl = <span class="built_in">document</span>.getElementById(<span class="string">'canvas'</span>);</span><br><span class="line"><span class="keyword">var</span> ctx = canvasEl.getContext(<span class="string">'2d'</span>);</span><br><span class="line">ctx.fillStyle = <span class="string">'red'</span>;</span><br><span class="line">ctx.translate(<span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">ctx.rotate(<span class="built_in">Math</span>.PI / <span class="number">180</span> * <span class="number">45</span>);</span><br><span class="line">ctx.fillRect(<span class="number">-10</span>, <span class="number">-10</span>, <span class="number">20</span>, <span class="number">20</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. fabric 方式</span></span><br><span class="line"><span class="keyword">var</span> canvas = <span class="keyword">new</span> fabric.Canvas(<span class="string">'c'</span>);</span><br><span class="line"><span class="keyword">var</span> rect = <span class="keyword">new</span> fabric.Rect(&#123;</span><br><span class="line">  left: <span class="number">100</span>,</span><br><span class="line">  top: <span class="number">100</span>,</span><br><span class="line">  fill: <span class="string">'red'</span>,</span><br><span class="line">  width: <span class="number">20</span>,</span><br><span class="line">  height: <span class="number">20</span>,</span><br><span class="line">  <span class="comment">// 指定一个 45 度旋转</span></span><br><span class="line">  angle: <span class="number">45</span></span><br><span class="line">&#125;);</span><br><span class="line">canvas.add(rect);</span><br></pre></td></tr></table></figure></p>
+<p>使用原生canvas需要结合使用 translate 和 rotate 才能实现旋转，而 fabic 中则指定 angle 属性就可以了。fabric 相当于抽象了旋转这个操作，避免了样板代码。 </p>
+<h3 id="1-3-移动矩形的对比"><a href="#1-3-移动矩形的对比" class="headerlink" title="1.3 移动矩形的对比"></a>1.3 移动矩形的对比</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. canvas 实现</span></span><br><span class="line"><span class="keyword">var</span> canvasEl = <span class="built_in">document</span>.getElementById(<span class="string">'canvas'</span>);</span><br><span class="line"><span class="keyword">var</span> ctx = canvasEl.getContext(<span class="string">'2d'</span>);</span><br><span class="line">ctx.fillStyle = <span class="string">'red'</span>;</span><br><span class="line">ctx.fillRect(<span class="number">100</span>, <span class="number">100</span>, <span class="number">20</span>, <span class="number">20</span>);</span><br><span class="line"><span class="comment">// 先擦除画布的矩形</span></span><br><span class="line">ctx.clearRect(<span class="number">0</span>, <span class="number">0</span>, canvasEl.width, canvasEl.height);</span><br><span class="line"><span class="comment">// 画新的矩形</span></span><br><span class="line">ctx.fillRect(<span class="number">20</span>, <span class="number">50</span>, <span class="number">20</span>, <span class="number">20</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. fabric 实现</span></span><br><span class="line"><span class="keyword">var</span> canvas = <span class="keyword">new</span> fabric.Canvas(<span class="string">'canvas'</span>);</span><br><span class="line"><span class="keyword">var</span> rect = <span class="keyword">new</span> fabric.Rect(&#123;</span><br><span class="line">  left: <span class="number">100</span>,</span><br><span class="line">  top: <span class="number">100</span>,</span><br><span class="line">  fill: <span class="string">'red'</span>,</span><br><span class="line">  width: <span class="number">20</span>,</span><br><span class="line">  height: <span class="number">20</span></span><br><span class="line">&#125;);</span><br><span class="line">canvas.add(rect);</span><br><span class="line"><span class="comment">// 直接移动</span></span><br><span class="line">rect.set(&#123;<span class="attr">left</span>: <span class="number">20</span>, <span class="attr">top</span>: <span class="number">50</span>&#125;)</span><br><span class="line">canvas.renderAll()</span><br></pre></td></tr></table></figure>
+<p>原生的 canvas 如果直接调用第二个 fillRect，那么只会在原来画布的基础上再画一个矩形，而不会移动现有的矩形，所以要有一个清空画布的操作；而通过 fabric，只要改变对象的属性，重新渲染就好了。</p>
+<h2 id="2-对象模型"><a href="#2-对象模型" class="headerlink" title="2 对象模型"></a>2 对象模型</h2><p>Fabric 包含了所有常见的基础图形类，主要有以下7类：</p>
+<ul>
+<li>fabric.Circle 圆</li>
+<li>fabric.Ellipse 椭圆</li>
+<li>fabric.Line 直线</li>
+<li>fabric.Polygon 多边形</li>
+<li>fabric.Polyline 折线</li>
+<li>fabric.Rect 矩形</li>
+<li>fabric.Triangle 三角形</li>
+</ul>
+<p>绘制时，只要创建一个类的实例，并将其加入 canvas 就好了。</p>
+<h3 id="2-1-对象属性"><a href="#2-1-对象属性" class="headerlink" title="2.1 对象属性"></a>2.1 对象属性</h3><p>上面移动矩形的例子中，使用了 <code>rect.set({left: 50, top: 20})</code>，通过 set 方法改变对象属性，重渲染后就得到了矩形移动的效果。</p>
+<p>对象都有以下的属性可以set设置：</p>
+<ul>
+<li>位置：left、top</li>
+<li>大小：width、height</li>
+<li>渲染：fill、opacity、stroke、strokeWidth</li>
+<li>缩放：scaleX、scaleY</li>
+<li>旋转：angle</li>
+<li>翻转：flipX、flipY</li>
+<li>歪斜：skewX、skewY</li>
+</ul>
+<p>可以使用 get(‘name’) 或者 getName() 这两种方式来获取对象属性，比如 get(‘left’) 或 getLeft()。</p>
+<h3 id="2-2-继承关系"><a href="#2-2-继承关系" class="headerlink" title="2.2 继承关系"></a>2.2 继承关系</h3><p>大部分的图形类都继承自 fabric.Object。fabric.Object 基本就代表一个二维图形</p>
+<h2 id="3-fabric-Canvas"><a href="#3-fabric-Canvas" class="headerlink" title="3. fabric.Canvas"></a>3. fabric.Canvas</h2><p>fabric.Canvas 是原生canvas 的包装器，它负责管理画布上的所有结构对象。</p>
+<p>使用方法如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// el 是 canvas 元素</span></span><br><span class="line"><span class="comment">// string 是 ID 选择器</span></span><br><span class="line"><span class="keyword">let</span> canvas = <span class="keyword">new</span> fabric.Canvas(el | string, options)</span><br><span class="line"><span class="comment">// 使用 add 方法添加图形对象</span></span><br><span class="line">canvas.add(rect)</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-1-Canvas-与-StaticCanvas-的不同与联系"><a href="#3-1-Canvas-与-StaticCanvas-的不同与联系" class="headerlink" title="3.1 Canvas 与 StaticCanvas 的不同与联系"></a>3.1 Canvas 与 StaticCanvas 的不同与联系</h3><p>Canvas 类是继承自 StaticCanvas 类，不同在于 Canvas 类多了一个交互层，允许用户用鼠标与 canvas 上的对象交互。如果不需要用户交互，那么可以使用 StaticCanvas 类。</p>
+
+                
+<p class="pink-link-context">
+    <a href="/2018/09/10/react-redux/" rel="next" title="使用 redux 开发流程">
+    上一篇：使用 redux 开发流程
+  </a>
+</p>
+
+
+
+<p class="pink-link-context">
+    <a href="/2018/05/11/frontend-canvas/" rel="next" title="Canvas 之 2D 上下文">
+    下一篇：Canvas 之 2D 上下文
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1" data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer indigo darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="https://github.com/LouisWT" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2016 example.com, All rights reserved.
+            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,780 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>koa-router包浅析 | LouisWT 的技术博客</title>
+    <meta name="author" content="LouisWT">
+    
+    <meta name="description" content="Tech Blog">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="koa-router包浅析">
+    <meta property="og:site_name" content="LouisWT 的技术博客">
+
+    
+    <meta property="og:image" content="">
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="LouisWT 的技术博客" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="indigo">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">LouisWT 的技术博客</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/">
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives">
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading">
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about">
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search">
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav indigo darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://louiswt.oss-cn-shenzhen.aliyuncs.com/pictures/avatar.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">刘文同</p>
+                        <p class="desc">Web前端/Web后台</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/">
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives">
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading">
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about">
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search">
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav indigo darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Chrome/">
+                    Chrome <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Mac/">
+                    Mac <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/JavaScript/">
+                    JavaScript <span class="right">6 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/JavaScript/ES6/">
+                    ES6 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/前端/">
+                    前端 <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/Canvas/">
+                    Canvas <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/状态管理/">
+                    状态管理 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/前端/状态管理/Redux/">
+                    Redux <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/Webpack/">
+                    Webpack <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/服务器端/">
+                    服务器端 <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/服务器端/Node-js/">
+                    Node-js <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/服务器端/Node-js/Koa/">
+                    Koa <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/服务器端渲染/">
+                    服务器端渲染 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/服务器端渲染/浏览器端渲染/">
+                    浏览器端渲染 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/VSCode/">
+                    VSCode <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/轻慕课/">
+                    轻慕课 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Vue/">
+                    Vue <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper indigo">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/服务器端/">服务器端</a><a class="breadcrumb" href="/categories/服务器端/Node-js/">Node.js</a><a class="breadcrumb" href="/categories/服务器端/Node-js/Koa/">Koa</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>koa-router包浅析</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2018-03-25T14:17:37.000Z"><a href="/2018/03/25/koa-router/">2018-03-25</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/Koa/" class="chip pink lighten-1">Koa</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#一-基本用法"><span class="section table-of-contents-text">一. 基本用法</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#二-源码"><span class="section table-of-contents-text">二. 源码</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#1-Router类"><span class="section table-of-contents-text">1. Router类</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-绑定方法"><span class="section table-of-contents-text">2. 绑定方法</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#3-Layer类"><span class="section table-of-contents-text">3. Layer类</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#4-Router-prototype-register方法"><span class="section table-of-contents-text">4. Router.prototype.register方法</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#5-Router-prototype-routes方法"><span class="section table-of-contents-text">5. Router.prototype.routes方法</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#6-其他方法"><span class="section table-of-contents-text">6. 其他方法</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#三-总结"><span class="section table-of-contents-text">三. 总结</span></a></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <p>启一个web服务器，路由是一个很重要的地方，根据客户端访问的url与方法，调用不同的接口，Koa 中使用的是 <code>koa-router</code>包，这里就看一下它的原理。<br><a id="more"></a></p>
+<h3 id="一-基本用法"><a href="#一-基本用法" class="headerlink" title="一. 基本用法"></a>一. 基本用法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const Koa = require(&apos;koa&apos;);</span><br><span class="line">const Router = require(&apos;koa-router&apos;);</span><br><span class="line"></span><br><span class="line">const router = new Router();</span><br><span class="line">router.get(&apos;/api/test&apos;, async (ctx, next) =&gt; &#123;</span><br><span class="line">  ctx.body = &apos;test&apos;;</span><br><span class="line">  await next();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.use(router.routes());</span><br><span class="line"></span><br><span class="line">app.listen(3000);</span><br></pre></td></tr></table></figure>
+<h3 id="二-源码"><a href="#二-源码" class="headerlink" title="二. 源码"></a>二. 源码</h3><p><code>main</code> 为 <code>lib/router.js</code>，咱们就从这个开始看</p>
+<h4 id="1-Router类"><a href="#1-Router类" class="headerlink" title="1. Router类"></a>1. Router类</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">module.exports = Router;</span><br><span class="line"></span><br><span class="line">function Router(opts) &#123;</span><br><span class="line">  if (!(this instanceof Router)) &#123;</span><br><span class="line">    return new Router(opts);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  this.opts = opts || &#123;&#125;;</span><br><span class="line">  this.methods = this.opts.methods || [</span><br><span class="line">    &apos;HEAD&apos;,</span><br><span class="line">    &apos;OPTIONS&apos;,</span><br><span class="line">    &apos;GET&apos;,</span><br><span class="line">    &apos;PUT&apos;,</span><br><span class="line">    &apos;PATCH&apos;,</span><br><span class="line">    &apos;POST&apos;,</span><br><span class="line">    &apos;DELETE&apos;</span><br><span class="line">  ];</span><br><span class="line"></span><br><span class="line">  this.params = &#123;&#125;;</span><br><span class="line">  this.stack = [];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>当调用<code>const router = new Router()</code>时，就会调用上面的Router构造函数。</p>
+<p>这里可以传入一个opts对象作为参数，具体有以下属性：</p>
+<ul>
+<li>methods: 允许的HTTP方法，默认是<code>&#39;HEAD&#39;,
+  &#39;OPTIONS&#39;,
+  &#39;GET&#39;,
+  &#39;PUT&#39;,
+  &#39;PATCH&#39;,
+  &#39;POST&#39;,
+  &#39;DELETE&#39;</code>数组</li>
+<li>prefix: 路由前缀</li>
+</ul>
+<h4 id="2-绑定方法"><a href="#2-绑定方法" class="headerlink" title="2. 绑定方法"></a>2. 绑定方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">var methods = require(&apos;methods&apos;);</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">methods.forEach(function (method) &#123;</span><br><span class="line">  Router.prototype[method] = function (name, path, middleware) &#123;</span><br><span class="line">    var middleware;</span><br><span class="line"></span><br><span class="line">    if (typeof path === &apos;string&apos; || path instanceof RegExp) &#123;</span><br><span class="line">      middleware = Array.prototype.slice.call(arguments, 2);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      middleware = Array.prototype.slice.call(arguments, 1);</span><br><span class="line">      path = name;</span><br><span class="line">      name = null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    this.register(path, [method], middleware, &#123;</span><br><span class="line">      name: name</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    return this;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>之后，<code>methods</code>包会返回HTTP方法，<code>acl
+bind
+checkout
+connect
+copy
+delete
+get
+head
+link
+lock
+m-search
+merge
+mkactivity
+mkcalendar
+mkcol
+move
+notify
+options
+patch
+post
+propfind
+proppatch
+purge
+put
+rebind
+report
+search
+source
+subscribe
+trace
+unbind
+unlink
+unlock
+unsubscribe</code>真的是非常多，大部分可能都不会用到吧。。。</p>
+<p>然后为每个HTTP方法都声明一个Router的同名的原型方法，这样每次调用 <code>router.get</code>等方法时，实际上就调用的是这个函数。</p>
+<p>再看<code>Router.prototype[method]</code>的函数体。可以看到，<strong>它接收三个参数，第一个参数<code>name</code>，其实是可选的，之后的<code>path</code>是必须的，最后的 <code>middleware</code> 是不限数量的，是函数组成的数组</strong>。</p>
+<p>取完参数后，调用了<code>this.register</code>方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var Layer = require(&apos;./layer&apos;);</span><br><span class="line">...</span><br><span class="line">Router.prototype.register = function (path, methods, middleware, opts) &#123;</span><br><span class="line">  opts = opts || &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  var stack = this.stack;</span><br><span class="line"></span><br><span class="line">  // create route</span><br><span class="line">  var route = new Layer(path, methods, middleware, &#123;</span><br><span class="line">    end: opts.end === false ? opts.end : true,</span><br><span class="line">    name: opts.name,</span><br><span class="line">    sensitive: opts.sensitive || this.opts.sensitive || false,</span><br><span class="line">    strict: opts.strict || this.opts.strict || false,</span><br><span class="line">    prefix: opts.prefix || this.opts.prefix || &quot;&quot;,</span><br><span class="line">  &#125;);</span><br><span class="line">  ...</span><br><span class="line">  return route;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这里创建了一个 Layer 对象，我们看看这是啥</p>
+<h4 id="3-Layer类"><a href="#3-Layer类" class="headerlink" title="3. Layer类"></a>3. <code>Layer</code>类</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">var pathToRegExp = require(&apos;path-to-regexp&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = Layer;</span><br><span class="line"></span><br><span class="line">function Layer(path, methods, middleware, opts) &#123;</span><br><span class="line">  this.opts = opts || &#123;&#125;;</span><br><span class="line">  this.name = this.opts.name || null;</span><br><span class="line">  this.methods = [];</span><br><span class="line">  this.paramNames = [];</span><br><span class="line">  this.stack = Array.isArray(middleware) ? middleware : [middleware];</span><br><span class="line"></span><br><span class="line">  methods.forEach(function(method) &#123;</span><br><span class="line">    var l = this.methods.push(method.toUpperCase());</span><br><span class="line">    if (this.methods[l-1] === &apos;GET&apos;) &#123;</span><br><span class="line">      this.methods.unshift(&apos;HEAD&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, this);</span><br><span class="line"></span><br><span class="line">  // ensure middleware is a function</span><br><span class="line">  this.stack.forEach(function(fn) &#123;</span><br><span class="line">    var type = (typeof fn);</span><br><span class="line">    if (type !== &apos;function&apos;) &#123;</span><br><span class="line">      throw new Error(</span><br><span class="line">        methods.toString() + &quot; `&quot; + (this.opts.name || path) +&quot;`: `middleware` &quot;</span><br><span class="line">        + &quot;must be a function, not `&quot; + type + &quot;`&quot;</span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, this);</span><br><span class="line"></span><br><span class="line">  this.path = path;</span><br><span class="line">  this.regexp = pathToRegExp(path, this.paramNames, this.opts);</span><br><span class="line"></span><br><span class="line">  debug(&apos;defined route %s %s&apos;, this.methods, this.opts.prefix + this.path);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>methods</code>中是<code>methods</code>中的方法都转成大写形式，特别的，如果有GET方法，就把HEAD方法也加入(因为HEAD方法基本上就是不返回报体的GET的方法)。</li>
+<li><code>stack</code> 中是 middleware 函数组成的数组，这里做了下参数检查，防止执行出错。</li>
+</ul>
+<p>最后是<code>this.regexp</code> ，这个调用了 <a href="https://www.npmjs.com/package/path-to-regexp" target="_blank" rel="noopener"><code>path-to-regexp</code>包</a>，这里就不详细讲了，只需要知道这里返回的是一个Regexp实例，可以根据这个正则对象来匹配路径，<code>this.paramNames</code>是一个数组，是根据路由中的站位符分析出的这个路由拥有的 param 参数。</p>
+<h4 id="4-Router-prototype-register方法"><a href="#4-Router-prototype-register方法" class="headerlink" title="4. Router.prototype.register方法"></a>4. <code>Router.prototype.register</code>方法</h4><p>我们接着看 <code>this.register</code>方法的剩余部分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">Router.prototype.register = function (path, methods, middleware, opts) &#123;</span><br><span class="line">  opts = opts || &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  var stack = this.stack;</span><br><span class="line"></span><br><span class="line">  // create route</span><br><span class="line">  var route = new Layer(path, methods, middleware, &#123;</span><br><span class="line">    end: opts.end === false ? opts.end : true,</span><br><span class="line">    name: opts.name,</span><br><span class="line">    sensitive: opts.sensitive || this.opts.sensitive || false,</span><br><span class="line">    strict: opts.strict || this.opts.strict || false,</span><br><span class="line">    prefix: opts.prefix || this.opts.prefix || &quot;&quot;,</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  if (this.opts.prefix) &#123;</span><br><span class="line">    route.setPrefix(this.opts.prefix);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  // add parameter middleware</span><br><span class="line">  Object.keys(this.params).forEach(function (param) &#123;</span><br><span class="line">    route.param(param, this.params[param]);</span><br><span class="line">  &#125;, this);</span><br><span class="line"></span><br><span class="line">  // register route with router</span><br><span class="line">  if (methods.length || !stack.length) &#123;</span><br><span class="line">    // if we don&apos;t have parameters, put before any with same route</span><br><span class="line">    // nesting level but with parameters</span><br><span class="line">    var added = false;</span><br><span class="line"></span><br><span class="line">    if (!route.paramNames.length) &#123;</span><br><span class="line">      var routeNestingLevel = route.path.toString().split(&apos;/&apos;).length;</span><br><span class="line"></span><br><span class="line">      added = stack.some(function (m, i) &#123;</span><br><span class="line">        var mNestingLevel = m.path.toString().split(&apos;/&apos;).length;</span><br><span class="line">        var isParamRoute = !!m.paramNames.length;</span><br><span class="line">        if (routeNestingLevel === mNestingLevel &amp;&amp; isParamRoute) &#123;</span><br><span class="line">          return stack.splice(i, 0, route);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (!added) stack.push(route);</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    stack.some(function (m, i) &#123;</span><br><span class="line">      if (!m.methods.length &amp;&amp; i === stack.length - 1) &#123;</span><br><span class="line">        return stack.push(route);</span><br><span class="line">      &#125; else if (m.methods.length) &#123;</span><br><span class="line">        if (stack[i - 1]) &#123;</span><br><span class="line">          return stack.splice(i, 0, route);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          return stack.unshift(route);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return route;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这里就是将每个路由(Layer对象)都push进this.stack数组。这里还进行了嵌套路由的处理。<br>比如执行完<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">router.get(&apos;/api/test/:id&apos;, async (ctx, next) =&gt; &#123;</span><br><span class="line">  const &#123; id &#125; = ctx.request.query;</span><br><span class="line">  ctx.body = id;</span><br><span class="line">  await next();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">router.post(&apos;/api/test&apos;, async (ctx, next) =&gt; &#123;</span><br><span class="line">  ctx.body = &apos;ok&apos;;</span><br><span class="line">  await next();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><code>this.stack</code>中就是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">[&#123;</span><br><span class="line">  opts: &#123;</span><br><span class="line">    end: true,</span><br><span class="line">    name: null,</span><br><span class="line">    sensitive: false,</span><br><span class="line">    strict: false,</span><br><span class="line">    prefix: &apos;&apos;</span><br><span class="line">  &#125;,</span><br><span class="line">  name: null,</span><br><span class="line">  methods: [&apos;HEAD&apos;, &apos;GET&apos;],</span><br><span class="line">  paramNames: [[Object]],</span><br><span class="line">  stack: [[AsyncFunction]],</span><br><span class="line">  path: &apos;/api/test/:id&apos;,</span><br><span class="line">  regexp: &#123; /^\/ api\/test\/((?:[^\/]+?))(?:\/(?=$))?$/i keys: [Array] &#125; </span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">  opts: &#123;</span><br><span class="line">    end: true,</span><br><span class="line">    name: null,</span><br><span class="line">    sensitive: false,</span><br><span class="line">    strict: false,</span><br><span class="line">    prefix: &apos;&apos;</span><br><span class="line">  &#125;,</span><br><span class="line">  name: null,</span><br><span class="line">  methods: [&apos;POST&apos;],</span><br><span class="line">  // 上述定义的 post路由没有 query 参数</span><br><span class="line">  paramNames: [],</span><br><span class="line">  // middleware 数组</span><br><span class="line">  stack: [[AsyncFunction]],</span><br><span class="line">  path: &apos;/api/test&apos;,</span><br><span class="line">  regexp: &#123; /^\/api\/test(?:\/(?=$))?$/i keys: [] &#125;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
+<p>可见，通过stack中的每个 Layer 对象，就可以匹配一个路由，然后执行stack中的中间件函数。</p>
+<h4 id="5-Router-prototype-routes方法"><a href="#5-Router-prototype-routes方法" class="headerlink" title="5. Router.prototype.routes方法"></a>5. <code>Router.prototype.routes</code>方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">Router.prototype.routes = Router.prototype.middleware = function () &#123;</span><br><span class="line">  var router = this;</span><br><span class="line"></span><br><span class="line">  var dispatch = function dispatch(ctx, next) &#123;</span><br><span class="line">    debug(&apos;%s %s&apos;, ctx.method, ctx.path);</span><br><span class="line"></span><br><span class="line">    var path = router.opts.routerPath || ctx.routerPath || ctx.path;</span><br><span class="line">    var matched = router.match(path, ctx.method);</span><br><span class="line">    var layerChain, layer, i;</span><br><span class="line"></span><br><span class="line">    if (ctx.matched) &#123;</span><br><span class="line">      ctx.matched.push.apply(ctx.matched, matched.path);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      ctx.matched = matched.path;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (!matched.route) return next();</span><br><span class="line"></span><br><span class="line">    layerChain = matched.pathAndMethod.reduce(function(memo, layer) &#123;</span><br><span class="line">      memo.push(function(ctx, next) &#123;</span><br><span class="line">        ctx.captures = layer.captures(path, ctx.captures);</span><br><span class="line">        ctx.params = layer.params(path, ctx.captures, ctx.params);</span><br><span class="line">        return next();</span><br><span class="line">      &#125;);</span><br><span class="line">      return memo.concat(layer.stack);</span><br><span class="line">    &#125;, []);</span><br><span class="line"></span><br><span class="line">    return compose(layerChain)(ctx, next);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  dispatch.router = this;</span><br><span class="line"></span><br><span class="line">  return dispatch;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Router.prototype.match = function (path, method) &#123;</span><br><span class="line">  var layers = this.stack;</span><br><span class="line">  var layer;</span><br><span class="line">  var matched = &#123;</span><br><span class="line">    path: [],</span><br><span class="line">    pathAndMethod: [],</span><br><span class="line">    route: false</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  for (var len = layers.length, i = 0; i &lt; len; i++) &#123;</span><br><span class="line">    layer = layers[i];</span><br><span class="line"></span><br><span class="line">    debug(&apos;test %s %s&apos;, layer.path, layer.regexp);</span><br><span class="line"></span><br><span class="line">    if (layer.match(path)) &#123;</span><br><span class="line">      matched.path.push(layer);</span><br><span class="line"></span><br><span class="line">      if (layer.methods.length === 0 || ~layer.methods.indexOf(method)) &#123;</span><br><span class="line">        matched.pathAndMethod.push(layer);</span><br><span class="line">        if (layer.methods.length) matched.route = true;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return matched;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Layer.prototype.match = function (path) &#123;</span><br><span class="line">  return this.regexp.test(path);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>由于是<code>app.use(router.routes())</code>的用法，所以这个函数返回的参数形式，必然符合中间件函数的要求。</p>
+<p>这个函数就是将<code>ctx.path</code>路径用<code>stack</code>中每个<code>Layer</code>中的正则表达式去匹配路径，并且将解析出的 url params 赋给 <code>ctx.params</code>，这样之后执行的中间件函数中就可以通过<code>ctx.params</code>参数来访问url 参数了。最后用 koa-compose将中间件数组连起来调用。</p>
+<p><strong>路由就是根据url然后决定调用哪些后台方法</strong>。<strong>koa-router将每个路由都抽象成一个<code>Layer</code>，<code>Layer</code>中拥有可以匹配路径的正则和匹配成功后将要运行的middlleware数组，把所有<code>Layer</code>都放在内部的<code>stack</code>数组中，当来了新请求，就用<code>Layer</code>中的正则去匹配，匹配成功了，就执行<code>Layer</code>中的middleware数组。这就完成了路由</strong>。</p>
+<h4 id="6-其他方法"><a href="#6-其他方法" class="headerlink" title="6. 其他方法"></a>6. 其他方法</h4><ol>
+<li><code>router.use</code>方法</li>
+</ol>
+<p>用法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 针对所有中间件，增加某个中间件</span><br><span class="line">router</span><br><span class="line">  .use(session())</span><br><span class="line">  .use(authorize());</span><br><span class="line"> </span><br><span class="line">// 针对对某个路由，增加某个中间件</span><br><span class="line">router.use(&apos;/users&apos;, userAuth());</span><br><span class="line"> </span><br><span class="line">// 针对某一系列路由，增加某个中间件</span><br><span class="line">router.use([&apos;/users&apos;, &apos;/admin&apos;], userAuth());</span><br><span class="line"> </span><br><span class="line">app.use(router.routes());</span><br></pre></td></tr></table></figure></p>
+<p>以上就是<code>use</code>方法的用处。不得不说，我其实是很少用到这个方法的，因为第一个用处，完全可以在调用<code>app.use(router.routes())</code>之前调用<code>app.use(someMiddleware())</code>来完成。</p>
+<p>第二个用法，一般来说，可以直接将那个中间件的逻辑写进<code>router.get(&#39;/users&#39;, userAuth(), otherMiddleware())</code>，这样就可以了，除非是你想针对这个路由的所有方法(get post put delete…)，都执行这个中间件，那的确这样写方便些。我建议<strong>可以运行一些通用的路由中间件</strong>，比如保存路由日志<code>router.use(saveLog())</code></p>
+<p>第三个用法跟第二个方法差不多。</p>
+<p>剩下的方法我几乎不用了，这里就不提了</p>
+<h3 id="三-总结"><a href="#三-总结" class="headerlink" title="三. 总结"></a>三. 总结</h3><p><a href="https://github.com/alexmingoia/koa-router#readme" target="_blank" rel="noopener">koa-router</a> 是一个蛮基础的包，基本上用到了koa框架就会用到这个包。</p>
+<p>回顾整个这个包整个路由的过程，有两个包是最重要的<code>path-to-regexp</code>和<code>koa-compose</code>，第一个包可以返回一个可以匹配特定路由的正则对象，第二个包可以将中间件函数连起来(详见<a href="https://github.com/LouisWT/Blog/issues/1" target="_blank" rel="noopener">[Node.js] 十步完成Koa2框架源码阅读</a>)。有兴趣的可以仔细研究下。</p>
+
+                
+<p class="pink-link-context">
+    <a href="/2018/04/02/node-koa/" rel="next" title="Koa源码解读">
+    上一篇：Koa源码解读
+  </a>
+</p>
+
+
+
+<p class="pink-link-context">
+    <a href="/2018/01/31/javascript-this/" rel="next" title="this 解析">
+    下一篇：this 解析
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1" data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer indigo darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="https://github.com/LouisWT" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2016 example.com, All rights reserved.
+            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

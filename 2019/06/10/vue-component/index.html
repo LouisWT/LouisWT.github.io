@@ -1,0 +1,766 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>Vue 学习笔记二 | LouisWT 的技术博客</title>
+    <meta name="author" content="LouisWT">
+    
+    <meta name="description" content="Tech Blog">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="Vue 学习笔记二">
+    <meta property="og:site_name" content="LouisWT 的技术博客">
+
+    
+    <meta property="og:image" content="">
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="LouisWT 的技术博客" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="indigo">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">LouisWT 的技术博客</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/">
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives">
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading">
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about">
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search">
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav indigo darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://louiswt.oss-cn-shenzhen.aliyuncs.com/pictures/avatar.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">刘文同</p>
+                        <p class="desc">Web前端/Web后台</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/">
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives">
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading">
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about">
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search">
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav indigo darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Chrome/">
+                    Chrome <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Mac/">
+                    Mac <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/JavaScript/">
+                    JavaScript <span class="right">6 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/JavaScript/ES6/">
+                    ES6 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/前端/">
+                    前端 <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/Canvas/">
+                    Canvas <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/状态管理/">
+                    状态管理 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/前端/状态管理/Redux/">
+                    Redux <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/Webpack/">
+                    Webpack <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/服务器端/">
+                    服务器端 <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/服务器端/Node-js/">
+                    Node-js <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/服务器端/Node-js/Koa/">
+                    Koa <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/服务器端渲染/">
+                    服务器端渲染 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/服务器端渲染/浏览器端渲染/">
+                    浏览器端渲染 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/VSCode/">
+                    VSCode <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/轻慕课/">
+                    轻慕课 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Vue/">
+                    Vue <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper indigo">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/Vue/">Vue</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>Vue 学习笔记二</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2019-06-10T08:06:48.633Z"><a href="/2019/06/10/vue-component/">2019-06-10</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/Vue/" class="chip pink lighten-1">Vue</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#一-组件注册"><span class="section table-of-contents-text">一. 组件注册</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#组件名"><span class="section table-of-contents-text">组件名</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#全局注册与局部注册"><span class="section table-of-contents-text">全局注册与局部注册</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#全局注册"><span class="section table-of-contents-text">全局注册</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#局部注册"><span class="section table-of-contents-text">局部注册</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#最佳实践"><span class="section table-of-contents-text">最佳实践</span></a></li></ol></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#二-Prop"><span class="section table-of-contents-text">二. Prop</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#Prop-名"><span class="section table-of-contents-text">Prop 名</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#Prop-类型"><span class="section table-of-contents-text">Prop 类型</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#类型检测"><span class="section table-of-contents-text">类型检测</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#type-类型"><span class="section table-of-contents-text">type 类型</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#Prop-传递"><span class="section table-of-contents-text">Prop 传递</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#特性继承"><span class="section table-of-contents-text">特性继承</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#三-自定义事件"><span class="section table-of-contents-text">三. 自定义事件</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#自定义组件的-v-model"><span class="section table-of-contents-text">自定义组件的 v-model</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1-组件的-v-model-原理"><span class="section table-of-contents-text">1. 组件的 v-model 原理</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#2-v-model-修改传入子组件中的变量名或父组件监听的事件"><span class="section table-of-contents-text">2. v-model 修改传入子组件中的变量名或父组件监听的事件</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#对-prop-进行双向绑定"><span class="section table-of-contents-text">对 prop 进行双向绑定</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#监听子组件的原生事件"><span class="section table-of-contents-text">监听子组件的原生事件</span></a></li></ol></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <h1 id="一-组件注册"><a href="#一-组件注册" class="headerlink" title="一. 组件注册"></a>一. 组件注册</h1><h2 id="组件名"><a href="#组件名" class="headerlink" title="组件名"></a>组件名</h2><p>组件注册的时候，第一个参数就是组件名，之后就可以利用这个组件名来重用组件了。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'my-component'</span>, ...)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>DOM 中直接使用的组件，组件名必须是小写，<strong>并且必须包含一个短横线</strong>，比如<code>my-component</code>，这是由于 HTML 对自定义组件名的规范</li>
+<li>字符串模板或者单文件组件中，组件名还可以使用 首字母大写命名，比如 <code>MyComponent</code></li>
+</ul>
+<h2 id="全局注册与局部注册"><a href="#全局注册与局部注册" class="headerlink" title="全局注册与局部注册"></a>全局注册与局部注册</h2><p>使用 webpack 编译，全局注册的组件的组件永远会在构建结果中，即便这个组件已经没用到了</p>
+<h3 id="全局注册"><a href="#全局注册" class="headerlink" title="全局注册"></a>全局注册</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'MyComponent'</span>, ...)</span><br></pre></td></tr></table></figure>
+<h3 id="局部注册"><a href="#局部注册" class="headerlink" title="局部注册"></a>局部注册</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> componentA = &#123;</span><br><span class="line">  <span class="comment">// 使用普通对象定义组件</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> componentB = &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="comment">// 给组件B注册组件A，如果没有这步的话，它无法使用组件A</span></span><br><span class="line">  components: &#123;</span><br><span class="line">    componentA,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  <span class="comment">// 给应用注册组件A 和 组件B</span></span><br><span class="line">  components: &#123;</span><br><span class="line">    componentA,</span><br><span class="line">    componentB,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h3><ul>
+<li>正常情况下，对大部分组件使用局部注册，也就是说当前组件用到了哪些别的组件就在 components 中声明这些组件</li>
+<li>如果有一些基础组件被许多组件公用，那么可以对这些 <strong>基础组件</strong> 进行全局注册</li>
+</ul>
+<p>自动化注册 components 文件夹下的 Base 开头的组件：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> upperFirst <span class="keyword">from</span> <span class="string">'lodash/upperFirst'</span></span><br><span class="line"><span class="keyword">import</span> camelCase <span class="keyword">from</span> <span class="string">'lodash/camelCase'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> requireComponent = <span class="built_in">require</span>.context(</span><br><span class="line">  <span class="comment">// 其组件目录的相对路径</span></span><br><span class="line">  <span class="string">'./components'</span>,</span><br><span class="line">  <span class="comment">// 是否查询其子目录</span></span><br><span class="line">  <span class="literal">false</span>,</span><br><span class="line">  <span class="comment">// 匹配基础组件文件名的正则表达式</span></span><br><span class="line">  /Base[A-Z]\w+\.(vue|js)$/</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">requireComponent.keys().forEach(<span class="function"><span class="params">fileName</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 获取组件配置</span></span><br><span class="line">  <span class="keyword">const</span> componentConfig = requireComponent(fileName)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 获取组件的 PascalCase 命名</span></span><br><span class="line">  <span class="keyword">const</span> componentName = upperFirst(</span><br><span class="line">    camelCase(</span><br><span class="line">      <span class="comment">// 获取和目录深度无关的文件名</span></span><br><span class="line">      fileName</span><br><span class="line">        .split(<span class="string">'/'</span>)</span><br><span class="line">        .pop()</span><br><span class="line">        .replace(<span class="regexp">/\.\w+$/</span>, <span class="string">''</span>)</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 全局注册组件</span></span><br><span class="line">  Vue.component(</span><br><span class="line">    componentName,</span><br><span class="line">    <span class="comment">// 如果这个组件选项是通过 `export default` 导出的，</span></span><br><span class="line">    <span class="comment">// 那么就会优先使用 `.default`，</span></span><br><span class="line">    <span class="comment">// 否则回退到使用模块的根。</span></span><br><span class="line">    componentConfig.default || componentConfig</span><br><span class="line">  )</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h1 id="二-Prop"><a href="#二-Prop" class="headerlink" title="二. Prop"></a>二. Prop</h1><h2 id="Prop-名"><a href="#Prop-名" class="headerlink" title="Prop 名"></a>Prop 名</h2><p>与组件名一样，分为 DOM 和 template 两种情况。</p>
+<ul>
+<li>DOM 中，向元素传递 prop，需要使用 小写加短横线 的命名方式</li>
+<li>字符串模板或者单文件组件中，可以使用驼峰命名法</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'blog-post'</span>, &#123;</span><br><span class="line">  <span class="comment">// 在 JavaScript 中是 camelCase 的</span></span><br><span class="line">  props: [<span class="string">'postTitle'</span>],</span><br><span class="line">  template: <span class="string">'&lt;h3&gt;&#123;&#123; postTitle &#125;&#125;&lt;/h3&gt;'</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果在 DOM 中使用</span></span><br><span class="line">&lt;blog-post post-title=<span class="string">"hello!"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">blog-post</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">// 如果在 template 中使用</span></span><br><span class="line">&lt;blog-post postTitle="hello!"&gt;&lt;/blog-post&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Prop-类型"><a href="#Prop-类型" class="headerlink" title="Prop 类型"></a>Prop 类型</h2><p>传入 Prop 时可以传入数组或对象。<br>数组形式的话，每个值就是变量名称；<br>对象形式的话，每个键值对时变量的名称和变量的类型，从而进行参数验证。</p>
+<h3 id="类型检测"><a href="#类型检测" class="headerlink" title="类型检测"></a>类型检测</h3><p>prop 类型检测需要传入对象，对象的键是 prop 名，值可以是<strong>字符串/数组/对象</strong></p>
+<ul>
+<li>字符串：prop 的单一类型，比如 Number</li>
+<li>数组：prop 的多个可能类型，比如 [Number, String]</li>
+<li>对象：<ul>
+<li>type 传入 props 的类型</li>
+<li>required：为 true 表示 prop 必须</li>
+<li>default：表示 prop 为空时的默认值，如果要返回对象的话，要使用函数返回新对象，否则所有组件会共享这个初始默认对象</li>
+<li>validator：自定义类型检测函数<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'my-component'</span>, &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    <span class="comment">// 基础的类型检查 (`null` 和 `undefined` 会通过任何类型验证)</span></span><br><span class="line">    propA: <span class="built_in">Number</span>,</span><br><span class="line">    <span class="comment">// 多个可能的类型</span></span><br><span class="line">    propB: [<span class="built_in">String</span>, <span class="built_in">Number</span>],</span><br><span class="line">    <span class="comment">// 必填的字符串</span></span><br><span class="line">    propC: &#123;</span><br><span class="line">      type: <span class="built_in">String</span>,</span><br><span class="line">      required: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 带有默认值的数字</span></span><br><span class="line">    propD: &#123;</span><br><span class="line">      type: <span class="built_in">Number</span>,</span><br><span class="line">      <span class="keyword">default</span>: <span class="number">100</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 带有默认值的对象</span></span><br><span class="line">    propE: &#123;</span><br><span class="line">      type: <span class="built_in">Object</span>,</span><br><span class="line">      <span class="comment">// 对象或数组默认值必须从一个工厂函数获取</span></span><br><span class="line">      <span class="keyword">default</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123; <span class="attr">message</span>: <span class="string">'hello'</span> &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 自定义验证函数</span></span><br><span class="line">    propF: &#123;</span><br><span class="line">      validator: <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 这个值必须匹配下列字符串中的一个</span></span><br><span class="line">        <span class="keyword">return</span> [<span class="string">'success'</span>, <span class="string">'warning'</span>, <span class="string">'danger'</span>].indexOf(value) !== <span class="number">-1</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="type-类型"><a href="#type-类型" class="headerlink" title="type 类型"></a>type 类型</h3><ul>
+<li>Number</li>
+<li>Boolean</li>
+<li>String</li>
+<li>Symbol</li>
+<li>Object</li>
+<li>Array</li>
+<li>Date</li>
+<li>Function</li>
+<li>某个构造函数，比如 Promise，Vue 会用 instanceof 来检查</li>
+</ul>
+<h2 id="Prop-传递"><a href="#Prop-传递" class="headerlink" title="Prop 传递"></a>Prop 传递</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 传递静态字符串 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">blog-post</span> <span class="attr">title</span>=<span class="string">"My journey with Vue"</span>&gt;</span><span class="tag">&lt;/<span class="name">blog-post</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 传递变量 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">blog-post</span> <span class="attr">v-bind:title</span>=<span class="string">"post.title"</span>&gt;</span><span class="tag">&lt;/<span class="name">blog-post</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 传递数字，尽管是静态的值，但是也需要 v-bind 来说明这是JS表达式不是字符串 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">blog-post</span> <span class="attr">v-bind:likes</span>=<span class="string">"42"</span>&gt;</span><span class="tag">&lt;/<span class="name">blog-post</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 传递 Boolean --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">blog-post</span> <span class="attr">v-bind:isPublished</span>=<span class="string">"true"</span>&gt;</span><span class="tag">&lt;/<span class="name">blog-post</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 传递数组 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">blog-post</span> <span class="attr">v-bind:commentIds</span>=<span class="string">"[123, 456, 789]"</span>&gt;</span><span class="tag">&lt;/<span class="name">blog-post</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 传递对象 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">blog-post</span> <span class="attr">v-bind:author</span>=<span class="string">"&#123;name: 'louiswt', age: 24&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">blog-post</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 将对象的所有属性作为 props 传入 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">post: &#123;</span></span><br><span class="line"><span class="comment">  id: 1,</span></span><br><span class="line"><span class="comment">  title: 'My Journey with Vue'</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">blog-post</span> <span class="attr">v-bind</span>=<span class="string">"post"</span>&gt;</span><span class="tag">&lt;/<span class="name">blog-post</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 相当于 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">blog-post</span> <span class="attr">v-bind:id</span>=<span class="string">"post.id"</span> <span class="attr">v-bind:title</span>=<span class="string">"post.title"</span>&gt;</span><span class="tag">&lt;/<span class="name">blog-post</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="特性继承"><a href="#特性继承" class="headerlink" title="特性继承"></a>特性继承</h2><p>组件可以接受任意的特性，这些特性会被添加到这个组件的根元素上。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 给 bootstrap-date-input 添加一个 data-date-picker 的 attr --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bootstrap-date-input</span> <span class="attr">data-date-picker</span>=<span class="string">"activated"</span>&gt;</span><span class="tag">&lt;/<span class="name">bootstrap-date-input</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 假设 bootstrap-date-input 的模板如下  --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"date"</span> <span class="attr">class</span>=<span class="string">"form-control"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 那么 data-date-picker 属性最终会自动添加到 bootstrap-date-input 的根元素，也就是 input 元素，相当于 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"date"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">data-date-picker</span>=<span class="string">"activated"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>禁用特性继承：在组件选项中设置 <code>inheritAttrs: false</code></li>
+<li>将特性指定给特定元素，而不是根元素：<code>v-bind=&#39;$attrs&#39;</code></li>
+</ul>
+<p>手动决定非 prop 的特性会被赋予给哪个元素：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="comment">// 利用 $attrs 将非 label 和 value 的 attr 都绑定给 input 元素</span></span></span><br><span class="line"><span class="javascript"><span class="comment">// $attrs 其实就是一个对象，对象的键是 attr name ，值是 attr value</span></span></span><br><span class="line"><span class="javascript"><span class="comment">// 绑定的语法是绑定对象的所有属性语法</span></span></span><br><span class="line"><span class="javascript">Vue.component(<span class="string">'base-input'</span>, &#123;</span></span><br><span class="line"><span class="javascript">  inheritAttrs: <span class="literal">false</span>,</span></span><br><span class="line"><span class="javascript">  props: [<span class="string">'label'</span>, <span class="string">'value'</span>],</span></span><br><span class="line"><span class="undefined">  template: `</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="undefined">      &#123;&#123; label &#125;&#125;</span></span><br><span class="line"><span class="undefined">      &lt;input</span></span><br><span class="line"><span class="javascript">        v-bind=<span class="string">"$attrs"</span></span></span><br><span class="line"><span class="javascript">        v-bind:value=<span class="string">"value"</span></span></span><br><span class="line"><span class="javascript">        v-on:input=<span class="string">"$emit('input', $event.target.value)"</span></span></span><br><span class="line"><span class="undefined">      &gt;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="undefined">  `</span></span><br><span class="line"><span class="undefined">&#125;)</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 使用方式 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- $attrs = &#123; required: true, placeholder: 'Enter your username' &#125; --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- required 和 placeholder 属性就会被传给 组件内部的 input 元素 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">base-input</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-model</span>=<span class="string">"username"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">required</span></span></span><br><span class="line"><span class="tag">  <span class="attr">placeholder</span>=<span class="string">"Enter your username"</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">base-input</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="三-自定义事件"><a href="#三-自定义事件" class="headerlink" title="三. 自定义事件"></a>三. 自定义事件</h1><p>Vue支持自定义事件。<strong>事件名尽量使用 kebab-case （小写加短横线）的事件名</strong>。</p>
+<h2 id="自定义组件的-v-model"><a href="#自定义组件的-v-model" class="headerlink" title="自定义组件的 v-model"></a>自定义组件的 v-model</h2><p><strong>v-model 绑定的变量只能属于当前组件的 data，不能是父组件传过来的 prop</strong></p>
+<h3 id="1-组件的-v-model-原理"><a href="#1-组件的-v-model-原理" class="headerlink" title="1. 组件的 v-model 原理"></a>1. 组件的 v-model 原理</h3><p><strong>父组件使用子组件时，如果在 v-model 上绑定了变量 data，那么这个变量 data 默认会利用 <code>value</code> prop 传入子组件，<br>并且父组件默认会监听子组件的 <code>input</code> 事件，从而在变量 data 被修改后改变变量 data 的值</strong>。</p>
+<p>子组件需要完成对 value prop 的绑定并且在监听到 input 事件后，将事件和 新的 value 抛出。</p>
+<p>子组件在整个过程中并没有修改父组件给的值。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- base-input 组件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">    <span class="attr">type</span>=<span class="string">"text"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-bind</span>=<span class="string">"$attrs"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-bind:value</span>=<span class="string">"value"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">input</span>=<span class="string">"handleOnInput"</span></span></span><br><span class="line"><span class="tag">  &gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  name: <span class="string">'BaseInput'</span>,</span></span><br><span class="line"><span class="javascript">  <span class="comment">// // v-model 绑定的变量会默认使用 value 作为变量名传入</span></span></span><br><span class="line"><span class="undefined">  props: &#123;</span></span><br><span class="line"><span class="undefined">    value: &#123;</span></span><br><span class="line"><span class="javascript">      type: <span class="built_in">String</span>,</span></span><br><span class="line"><span class="javascript">      required: <span class="literal">true</span>,</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  data() &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">      text: <span class="keyword">this</span>.value,</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  methods: &#123;</span></span><br><span class="line"><span class="undefined">    handleOnInput(event) &#123;</span></span><br><span class="line"><span class="javascript">      <span class="comment">// 同步组件内部的状态</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.text = event.target.value</span></span><br><span class="line"><span class="javascript">      <span class="comment">// 抛出事件和新的值，从而更新父组件的状态</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.$emit(<span class="string">'input'</span>, event.target.value)</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- BaseInput 使用方法 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 将 textValue 作为 value props 传入 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">base-input</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-model</span>=<span class="string">"textValue"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">required</span></span></span><br><span class="line"><span class="tag">  <span class="attr">placeholder</span>=<span class="string">"Enter your username"</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">base-input</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="2-v-model-修改传入子组件中的变量名或父组件监听的事件"><a href="#2-v-model-修改传入子组件中的变量名或父组件监听的事件" class="headerlink" title="2. v-model 修改传入子组件中的变量名或父组件监听的事件"></a>2. v-model 修改传入子组件中的变量名或父组件监听的事件</h3><p>子组件默认会将得到的 v-model 变量作为 value prop 传入，如果想作为其他 prop 名传入，可以修改子组件的 model 属性；</p>
+<p>父组件默认会监听子组件的 input 事件，如果需要监听其他事件，也可以修改 子组件的 model 属性。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- base-box 组件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"checkbox"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 监听 change 事件并抛出事件和新的值，这是和 model 属性中的设置对应的 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">    <span class="attr">id</span>=<span class="string">"checkbox"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">type</span>=<span class="string">"checkbox"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-bind:checked</span>=<span class="string">"check"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-on:change</span>=<span class="string">"$emit('onChange', $event.target.checked)"</span></span></span><br><span class="line"><span class="tag">    &gt;</span></span><br><span class="line">    这是单选框</span><br><span class="line">  <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  name: <span class="string">'base-box'</span>,</span></span><br><span class="line"><span class="undefined">  props: &#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 无论如何必须声明 prop</span></span></span><br><span class="line"><span class="javascript">    check: <span class="built_in">Boolean</span></span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  model: &#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 将传入的 v-model 作为 check prop 而不是 value prop</span></span></span><br><span class="line"><span class="javascript">    prop: <span class="string">'check'</span>,</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 父组件监听子组件的 onChange 事件而不是 input 事件</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 这个 onChange 事件是自定义的，只要和子组件 $emit 的事件名对应就行</span></span></span><br><span class="line"><span class="javascript">    event: <span class="string">'onChange'</span></span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- base-box 使用方式 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 将 lovingVue 作为 v-model 绑定到 base-box 组件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">base-box</span> <span class="attr">v-model</span>=<span class="string">"lovingVue"</span>&gt;</span><span class="tag">&lt;/<span class="name">base-box</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>子组件在 props 和 model 的 prop 属性中，指定传入的 v-model 的变量名</li>
+<li>子组件在 model 的 event 属性中，指定父组件监听自己的什么事件</li>
+<li>子组件绑定父组件给的 prop</li>
+<li>子组件在特定情况下发出事件，并给出改变的值</li>
+<li>父组件监听事件并得到新的值</li>
+</ol>
+<h2 id="对-prop-进行双向绑定"><a href="#对-prop-进行双向绑定" class="headerlink" title="对 prop 进行双向绑定"></a>对 prop 进行双向绑定</h2><p>双向绑定就是说，子组件修改父组件的 prop 之后，父组件的状态也会被修改，单纯的双向绑定不符合单向数据流的理念，所以可以使用 <code>update:propName</code>自定义事件来实现<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Title 组件，在点击文本后， 会 $emit update:title 事件和新的 title --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> @<span class="attr">click</span>=<span class="string">"handleOnClick"</span>&gt;</span>Click Me<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  name: <span class="string">"tittle"</span>,</span></span><br><span class="line"><span class="undefined">  props: &#123;</span></span><br><span class="line"><span class="undefined">    title: &#123;</span></span><br><span class="line"><span class="javascript">      type: <span class="built_in">String</span>,</span></span><br><span class="line"><span class="javascript">      required: <span class="literal">true</span>,</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  data() &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="undefined">      count: 0,</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  methods: &#123;</span></span><br><span class="line"><span class="undefined">    handleOnClick() &#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.count++;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.$emit(<span class="string">'update:title'</span>, <span class="keyword">this</span>.title + <span class="keyword">this</span>.count)</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 使用方式 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Title</span></span></span><br><span class="line"><span class="tag">  <span class="attr">:title</span>=<span class="string">"myTitle"</span></span></span><br><span class="line"><span class="tag">  @<span class="attr">update:title</span>=<span class="string">"myTitle = $event"</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">Title</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 或 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Title</span> <span class="attr">:title.sync</span>=<span class="string">"myTitle"</span>&gt;</span><span class="tag">&lt;/<span class="name">Title</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>事件名可以是任意事件名，并不需要一定是 <code>update:propName</code> 形式，只要子组件 $emit 的事件名和 使用时监听的事件名相同即可。<br>但是如果要使用 .sync 修饰符来自动绑定的话，那么就需要使用 <code>update:propName</code> 形式。</p>
+<p>综合来说，用 <code>update:propName</code> 形式更规范一点。</p>
+<h2 id="监听子组件的原生事件"><a href="#监听子组件的原生事件" class="headerlink" title="监听子组件的原生事件"></a>监听子组件的原生事件</h2><p>从上面可以看到，父组件实际监听的 input 事件实际上是子组件再次 $emit 而来的事件，得到的是子组件传过来的参数，而不是原生的事件。</p>
+<p>如果想监听原生事件，那么可以使用 .native 修饰符，加上这个修饰符后，父组件会监听子组件根元素的对应事件，并且触发后会得到原生的 event 对象</p>
+<p>如果原生事件不是发生在子组件的根元素，那么子组件可以使用 <code>this.$listeners</code> 来获得父组件传入的事件处理函数与事件的对象，然后将它绑定到发生事件的元素。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"text"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">      <span class="attr">id</span>=<span class="string">"text"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">type</span>=<span class="string">"text"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">v-bind</span>=<span class="string">"$attrs"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">v-bind:value</span>=<span class="string">"value"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">v-on</span>=<span class="string">"inputListeners"</span></span></span><br><span class="line"><span class="tag">    &gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  name: <span class="string">'BaseInput'</span>,</span></span><br><span class="line"><span class="javascript">  <span class="comment">// v-model 绑定的变量会默认使用 value 作为变量名传入</span></span></span><br><span class="line"><span class="undefined">  props: &#123;</span></span><br><span class="line"><span class="undefined">    value: &#123;</span></span><br><span class="line"><span class="javascript">      type: <span class="built_in">String</span>,</span></span><br><span class="line"><span class="javascript">      required: <span class="literal">true</span>,</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  data() &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">      text: <span class="keyword">this</span>.value,</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  computed: &#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 这样写是为了兼容 v-model 的用法</span></span></span><br><span class="line"><span class="undefined">    inputListeners() &#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="undefined">        ...this.$listeners,</span></span><br><span class="line"><span class="javascript">        input: <span class="keyword">this</span>.handleOnInput,</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  methods: &#123;</span></span><br><span class="line"><span class="undefined">    handleOnInput(event) &#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.text = event.target.value</span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.$emit(<span class="string">'input'</span>, event.target.value)</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 用法 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">BaseInput</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">focus.native</span>=<span class="string">"onFoucs"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">input.native</span>=<span class="string">"onInput"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">required</span></span></span><br><span class="line"><span class="tag">    <span class="attr">placeholder</span>=<span class="string">"Enter your username"</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">BaseInput</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+                
+
+
+<p class="pink-link-context">
+    <a href="/2019/06/10/vue-base/" rel="next" title="Vue 学习笔记一">
+    下一篇：Vue 学习笔记一
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1" data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer indigo darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="https://github.com/LouisWT" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2016 example.com, All rights reserved.
+            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

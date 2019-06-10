@@ -1,0 +1,761 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>微信扫码登录(需先关注公众号) | LouisWT 的技术博客</title>
+    <meta name="author" content="LouisWT">
+    
+    <meta name="description" content="Tech Blog">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="微信扫码登录(需先关注公众号)">
+    <meta property="og:site_name" content="LouisWT 的技术博客">
+
+    
+    <meta property="og:image" content="">
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="LouisWT 的技术博客" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="indigo">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">LouisWT 的技术博客</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/">
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives">
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading">
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about">
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search">
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav indigo darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://louiswt.oss-cn-shenzhen.aliyuncs.com/pictures/avatar.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">刘文同</p>
+                        <p class="desc">Web前端/Web后台</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/">
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives">
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading">
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about">
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search">
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav indigo darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Chrome/">
+                    Chrome <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Mac/">
+                    Mac <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/JavaScript/">
+                    JavaScript <span class="right">6 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/JavaScript/ES6/">
+                    ES6 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/前端/">
+                    前端 <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/Canvas/">
+                    Canvas <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/状态管理/">
+                    状态管理 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/前端/状态管理/Redux/">
+                    Redux <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/Webpack/">
+                    Webpack <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/服务器端/">
+                    服务器端 <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/服务器端/Node-js/">
+                    Node-js <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/服务器端/Node-js/Koa/">
+                    Koa <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/服务器端渲染/">
+                    服务器端渲染 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/服务器端渲染/浏览器端渲染/">
+                    浏览器端渲染 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/VSCode/">
+                    VSCode <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/轻慕课/">
+                    轻慕课 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Vue/">
+                    Vue <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper indigo">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/轻慕课/">轻慕课</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>微信扫码登录(需先关注公众号)</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2018-05-07T13:15:37.000Z"><a href="/2018/05/07/qingmooc-login/">2018-05-07</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/WebSocket/" class="chip pink lighten-1">WebSocket</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#一、方案"><span class="section table-of-contents-text">一、方案</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#二、具体实现"><span class="section table-of-contents-text">二、具体实现</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-0-服务器起一个-WS-服务器"><span class="section table-of-contents-text">2.0 服务器起一个 WS 服务器</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-1-客户端向服务器请求二维码"><span class="section table-of-contents-text">2.1 客户端向服务器请求二维码</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-2-服务器调用微信接口，生成公众号的二维码"><span class="section table-of-contents-text">2.2 服务器调用微信接口，生成公众号的二维码</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-3-用户扫码后，微信会回调后台接口，后台认证用户信息"><span class="section table-of-contents-text">2.3 用户扫码后，微信会回调后台接口，后台认证用户信息</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-4-后台通知前端用户登录成功，并将登录凭证给前端"><span class="section table-of-contents-text">2.4 后台通知前端用户登录成功，并将登录凭证给前端</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#三-pm2-部署-nginx-反向代理"><span class="section table-of-contents-text">三. pm2 部署 + nginx 反向代理</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#四-pm2-主从进程通信"><span class="section table-of-contents-text">四. pm2 主从进程通信</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#四-新的解决办法-2018-6-30"><span class="section table-of-contents-text">四. 新的解决办法(2018/6/30)</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#五-总结"><span class="section table-of-contents-text">五. 总结</span></a></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <p>最近实验室项目遇到一个新需求。之前项目用的微信扫码登录是利用的微信实现的网站应用扫码功能，需要变成先关注公众号才能登录进去的扫码登录，这样用微信原本的扫码登录就不行了。<br><a id="more"></a></p>
+<ul>
+<li>目前扫码后效果是这样的：</li>
+</ul>
+<p><img src="http://qingmooc-v1.oss-cn-qingdao.aliyuncs.com/other/WechatIMG15.jpeg" alt="data:image"></p>
+<p>然后一确认登录 PC端就登录成功了。</p>
+<p>但是这一流程的问题在于，用户不需要关注公众号，然后老师就不乐意了，咱们要做<strong>先关注公众号才能登录进去的扫码登录</strong>。</p>
+<ul>
+<li>也就是说目标效果是这样的：</li>
+</ul>
+<p>扫码之后显示公众号首页<br><img src="http://qingmooc-v1.oss-cn-qingdao.aliyuncs.com/other/WechatIMG16.jpeg" alt="data:image"></p>
+<p>点击关注之后，PC 端登录成功。</p>
+<blockquote>
+<p>微信相关api：<a href="https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&amp;t=resource/res_list&amp;verify=1&amp;id=open1419316505&amp;token=&amp;lang=zh_CN" target="_blank" rel="noopener">常规扫码登录</a>、<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1443433542" target="_blank" rel="noopener">生成公众号二维码</a>、<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140454" target="_blank" rel="noopener">关注公众号后回调</a></p>
+</blockquote>
+<h3 id="一、方案"><a href="#一、方案" class="headerlink" title="一、方案"></a>一、方案</h3><ul>
+<li>客户端向服务器请求二维码</li>
+<li>服务器调用微信接口，生成公众号的二维码</li>
+<li>用户扫码并关注公众号后，微信会回调后台接口，后台认证用户信息</li>
+<li>后台通知前端用户登录成功，并将登录凭证给前端</li>
+</ul>
+<p>以上流程基本上是符合我们的需求的，但是最后一步用到了 服务器推送技术。</p>
+<p>说到服务器推送技术，那就不得不说 WebSocket 协议了。WebSocket 协议规避了Ajax 轮询和 Ajax 长轮询技术的缺点。我最后选择的是 WebSocket 协议来实现服务器推送。</p>
+<p>参考这篇文章，<a href="https://cloud.tencent.com/developer/article/1005550" target="_blank" rel="noopener">Websocket 研究 / Nodejs 模块选型对比</a>，我决定使用 Node.js 的 ws 模块进行开发。</p>
+<h3 id="二、具体实现"><a href="#二、具体实现" class="headerlink" title="二、具体实现"></a>二、具体实现</h3><h4 id="2-0-服务器起一个-WS-服务器"><a href="#2-0-服务器起一个-WS-服务器" class="headerlink" title="2.0 服务器起一个 WS 服务器"></a>2.0 服务器起一个 WS 服务器</h4><p>我平时常用的是 Koa 框架，所以当然也希望可以配合 Koa 框架使用 ws，我找了一下后发现了 koa-websocket 包</p>
+<p>这个包做的大致是 new 了一个 ws.Server 对象，并将它挂在了 koa 的 app 上面，从而可以通过 app.ws 来访问 ws.Server 对象。当有 ws 请求时，可以用 ctx.websocket 得到客户端连接。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Koa <span class="keyword">from</span> <span class="string">'koa'</span>;</span><br><span class="line"><span class="keyword">import</span> websockify <span class="keyword">from</span> <span class="string">'koa-websocket'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> verifyClient = <span class="function">(<span class="params">info</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; origin, req, secure &#125; = info;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ws 的选项</span></span><br><span class="line"><span class="keyword">const</span> wssOptions = &#123;</span><br><span class="line">  verifyClient,</span><br><span class="line">  clientTracking: <span class="literal">true</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = websockify(<span class="keyword">new</span> Koa(), wssOptions);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 路由中间件</span></span><br><span class="line">app.ws.use(signUpRoute);</span><br><span class="line"></span><br><span class="line"><span class="comment">// process.env.NODE_APP_INSTANCE 是用 pm2 部署应用时会有的系统变量，从 0开始</span></span><br><span class="line">process.env.NODE_APP_INSTANCE = process.env.NODE_APP_INSTANCE || <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果 pm2 启动了两个 Worker，那就分别监听 3001 和 3002 端口</span></span><br><span class="line"><span class="keyword">const</span> port = <span class="number">3001</span> + <span class="built_in">parseInt</span>(process.env.NODE_APP_INSTANCE, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">app.listen(port, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`WebSocketServer listening on http://localhost:<span class="subst">$&#123;port&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>app/websocket/router.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 路由中间件</span></span><br><span class="line"><span class="keyword">import</span> route <span class="keyword">from</span> <span class="string">'koa-route'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; signUp &#125; <span class="keyword">from</span> <span class="string">'app/modules/signup'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// signUp 函数中是具体的处理逻辑，也就是调用微信那些 api，最终生成 二维码</span></span><br><span class="line"><span class="keyword">const</span> signUpRoute = route.all(<span class="string">'/ws/signup'</span>, signUp);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> &#123;</span><br><span class="line">  signUpRoute,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="2-1-客户端向服务器请求二维码"><a href="#2-1-客户端向服务器请求二维码" class="headerlink" title="2.1 客户端向服务器请求二维码"></a>2.1 客户端向服务器请求二维码</h4><p>客户端在打开网站的登录页面后，页面会创建一个连接到后台服务器的 WebSocket 对象，并发送一个请求二维码链接的请求，后台在收到前端请求后，会调用微信的生成带参数的二维码接口，生成公众号的二维码链接，并传给前端。</p>
+<p>前端：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前端使用的是 React 框架，将生成 WebSocket 对象的步骤放在 componentDidMount 中</span></span><br><span class="line">componentDidMount() &#123;</span><br><span class="line">  <span class="keyword">this</span>.ws = <span class="keyword">new</span> WebSocket(<span class="string">'wss://www.xxx.com/ws/signup'</span>)</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 客户端发送一个二维码请求</span></span><br><span class="line">  <span class="keyword">this</span>.ws.onopen = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.ws.send(<span class="built_in">JSON</span>.stringify(&#123;</span><br><span class="line">      type: <span class="string">'qrcode'</span>,</span><br><span class="line">    &#125;))</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 客户端监听服务器端的回复</span></span><br><span class="line">  <span class="keyword">this</span>.ws.onmessage = <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; data &#125; = event</span><br><span class="line">    <span class="keyword">const</span> &#123; type, message &#125; = <span class="built_in">JSON</span>.parse(data)</span><br><span class="line">    <span class="comment">// </span></span><br><span class="line">    <span class="keyword">if</span> (type === <span class="string">'qrcode'</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">        url: message</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-2-服务器调用微信接口，生成公众号的二维码"><a href="#2-2-服务器调用微信接口，生成公众号的二维码" class="headerlink" title="2.2 服务器调用微信接口，生成公众号的二维码"></a>2.2 服务器调用微信接口，生成公众号的二维码</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> signUp = <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> socket = ctx.websocket;</span><br><span class="line">  socket.on(<span class="string">'message'</span>, <span class="keyword">async</span> (message) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> messageJSON = <span class="built_in">JSON</span>.parse(message);</span><br><span class="line">    <span class="keyword">const</span> &#123; type &#125; = messageJSON;</span><br><span class="line">    <span class="keyword">const</span> payload = &#123;</span><br><span class="line">      type: <span class="string">'nothing'</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">switch</span> (type) &#123;</span><br><span class="line">      <span class="comment">// 收到前端的qrcode 请求</span></span><br><span class="line">      <span class="keyword">case</span> <span class="string">'qrcode'</span>: &#123;</span><br><span class="line">        <span class="keyword">const</span> ticket = <span class="keyword">await</span> getQRCodeUrl();</span><br><span class="line">        <span class="keyword">if</span> (ticket) &#123;</span><br><span class="line">          <span class="keyword">const</span> &#123; qrcodeUrl &#125; = login;</span><br><span class="line">          <span class="comment">// 给 socket 一个唯一标识</span></span><br><span class="line">          socket.uuid = ticket;</span><br><span class="line">          payload.type = <span class="string">'qrcode'</span>;</span><br><span class="line">          payload.message = <span class="string">`<span class="subst">$&#123;qrcodeUrl&#125;</span><span class="subst">$&#123;<span class="built_in">encodeURIComponent</span>(ticket)&#125;</span>`</span>;</span><br><span class="line">          socket.send(<span class="built_in">JSON</span>.stringify(payload));</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">default</span>: payload.message = <span class="string">''</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>可以看到，中间有一步是客户端连接后端后，后端会给这个ws socket 一个唯一标识，从而区分每个客户端。我这里是将一个生成二维码时的一个唯一字符串赋给了那个socket，这样在用户扫码之后，微信会回调后台的接口，并将那个唯一字符串传回来，然后通过那个唯一字符串就可以找到对应的 socket，从而发送登录成功的消息。</p>
+<h4 id="2-3-用户扫码后，微信会回调后台接口，后台认证用户信息"><a href="#2-3-用户扫码后，微信会回调后台接口，后台认证用户信息" class="headerlink" title="2.3 用户扫码后，微信会回调后台接口，后台认证用户信息"></a>2.3 用户扫码后，微信会回调后台接口，后台认证用户信息</h4><p>当用户扫码并关注公众号后，微信会回调后台接口，其中会带有用户的openid 和用于标识一个 ws 的唯一字符串，后台会根据 openid 去查询用户的信息，并生成 jsonwebtoken。</p>
+<h4 id="2-4-后台通知前端用户登录成功，并将登录凭证给前端"><a href="#2-4-后台通知前端用户登录成功，并将登录凭证给前端" class="headerlink" title="2.4 后台通知前端用户登录成功，并将登录凭证给前端"></a>2.4 后台通知前端用户登录成功，并将登录凭证给前端</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> token = <span class="keyword">await</span> postMessage(openid);</span><br><span class="line">postClient(uuid, token);</span><br><span class="line"></span><br><span class="line"><span class="comment">// postClient 函数实现</span></span><br><span class="line"><span class="keyword">const</span> wsServer = app.ws.server;</span><br><span class="line"><span class="keyword">const</span> postClient = <span class="function">(<span class="params">uuid, message</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> clients = wsServer.clients;</span><br><span class="line">  <span class="keyword">let</span> client;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> cli <span class="keyword">of</span> clients) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">encodeURIComponent</span>(cli.uuid) === <span class="built_in">encodeURIComponent</span>(uuid) &amp;&amp; <span class="built_in">Number</span>(cli.readyState) === <span class="number">1</span>) &#123;</span><br><span class="line">      client = cli;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (client) &#123;</span><br><span class="line">    client.send(<span class="built_in">JSON</span>.stringify(&#123;</span><br><span class="line">      type: <span class="string">'token'</span>,</span><br><span class="line">      message,</span><br><span class="line">    &#125;));</span><br><span class="line">    client.close(<span class="number">1000</span>, <span class="built_in">JSON</span>.stringify(&#123;</span><br><span class="line">      type: <span class="string">'end'</span>,</span><br><span class="line">      message: <span class="string">'connection will be terminated'</span>,</span><br><span class="line">    &#125;));</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>其中 app.ws.server.clients 是一个 Set，里面存放了当前所有的 ws 连接。client.readyState 标识了当前连接的状态，为 1 时表示连接状态。具体看 ws 的<a href="https://github.com/websockets/ws/blob/HEAD/doc/ws.md" target="_blank" rel="noopener">文档</a></p>
+<p>uuid  就是微信传回来的唯一标识</p>
+<p>可以通过 uuid 取到对应的ws 连接，并判断这个连接是否还是连接状态，如果还是连接状态，就将 jsonwebtoken 传过去，客户端也就登录成功了。</p>
+<h3 id="三-pm2-部署-nginx-反向代理"><a href="#三-pm2-部署-nginx-反向代理" class="headerlink" title="三. pm2 部署 + nginx 反向代理"></a>三. pm2 部署 + nginx 反向代理</h3><p>代码编写测试好，就剩部署了。我这里是用 pm2 启动了两个 WebSocket Server 实例，每个实例监听不同端口。由于使用的是 WebSocket 协议，所以 nginx 要加一些配置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">upstream wss_nodes &#123;</span><br><span class="line"> ip_hash;</span><br><span class="line"> server 127.0.0.1:3001;</span><br><span class="line"> server 127.0.0.1:3002;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">map $http_upgrade $connection_upgrade &#123;</span><br><span class="line">  default upgrade;</span><br><span class="line">  &apos;&apos;      close;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    ...</span><br><span class="line">  location /ws &#123;</span><br><span class="line">    proxy_pass http://wss_nodes;</span><br><span class="line">    proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">    proxy_set_header Host $host;</span><br><span class="line">    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line"></span><br><span class="line">    proxy_set_header Upgrade $http_upgrade;</span><br><span class="line">    # Connection 头部的值 取决于客户端请求头是否存在 Upgrade 字段 </span><br><span class="line">    proxy_set_header Connection $connection_upgrade;</span><br><span class="line">    proxy_read_timeout 300s;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 ip_hash 是为了让同一客户端的连接每次都能代理到同一 wss 实例。</p>
+<p>关于代理请求的头部设置，参考了 nginx 的<a href="http://nginx.org/en/docs/http/websocket.html" target="_blank" rel="noopener">文档</a>、nginx <a href="http://www.phperz.com/article/16/0507/212376.html" target="_blank" rel="noopener">map模块配置和使用</a></p>
+<blockquote>
+<p>WebSocket 和 HTTP 协议不同，但是 WebSocket 中的握手和 HTTP 中的握手兼容，它使用 HTTP 中的 Upgrade 协议头将连接从 HTTP 升级到 WebSocket，当客户端发过来一个 Connection: Upgrade 请求头时，Nginx 是不知道的，所以，当 Nginx 代理服务器拦截到一个客户端发来的 Upgrade 请求时，需要显式来设置 Connection 、 Upgrade 头信息，并使用 101（交换协议）返回响应，在客户端和代理服务器、后端服务器之间建立隧道来支持 WebSocket。</p>
+</blockquote>
+<blockquote>
+<p>WebSocket 仍然受到 Nginx 缺省为60秒的 proxy_read_timeout 的影响。这意味着，如果你有一个程序使用了 WebSocket，但又可能超过60秒不发送任何数据的话，那你要么需要增加超时时间，要么实现一个 ping 的消息以保持联系。使用 ping 的解决方法有额外的好处，可以发现连接是否被意外关闭</p>
+</blockquote>
+<h3 id="四-pm2-主从进程通信"><a href="#四-pm2-主从进程通信" class="headerlink" title="四. pm2 主从进程通信"></a>四. pm2 主从进程通信</h3><p>经过上述步骤之后，在线上测试时，发现用户扫码之后，有时候后端会推送给前端 jsonwebtoken，有时候不会。稍微想了一下，发现还是大意了。</p>
+<p>假设现在两个 WS 服务器分别监听 3001、3002 端口，当一个客户端发起一个 WebSocket 连接到 3001 端口的 WS Server，这个 WS Server 就持有了这个客户端的连接。然后后台返回给前端二维码，之后用户扫码，关注公众号，这时微信会回调后台接口，然后后台应该根据 uuid 找到对应的客户端连接，问题就在于后台应该去 3001 端口的 WS Server 找，还是应该去 3002 端口的 WS Server 找呢？</p>
+<p>又翻了翻 pm2 的文档，pm2 是支持主从进程之间通信的，所以说可以通过 pm2 来发送消息，通知别的 WS Server “ 这个客户端在我这里没找到，你找找 ”</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pm2 <span class="keyword">from</span> <span class="string">'pm2'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; postClient &#125; <span class="keyword">from</span> <span class="string">'app/websocket'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> neighborIds = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myId = process.env.NODE_APP_INSTANCE;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通知其他进程</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">broadcastMessageToNeighbor</span>(<span class="params">type, message</span>) </span>&#123;</span><br><span class="line">  pm2.connect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    pm2.list(<span class="function">(<span class="params">err, processes</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(err);</span><br><span class="line">      &#125;</span><br><span class="line">      processes.forEach(<span class="function">(<span class="params">process</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> ortherId = process.pm_id;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">Number</span>(myId) !== <span class="built_in">Number</span>(ortherId)) &#123;</span><br><span class="line">          neighborIds.push(ortherId);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      neighborIds.forEach(<span class="function">(<span class="params">neighborId</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// topic 字段不能少，暂且设为与 type 一样</span></span><br><span class="line">        pm2.sendDataToProcessId(neighborId, &#123;</span><br><span class="line">          type,</span><br><span class="line">          data: message,</span><br><span class="line">          topic: type,</span><br><span class="line">        &#125;, (error) =&gt; &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(error);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当前进程监听 pm2 传递来的消息</span></span><br><span class="line">process.on(<span class="string">'message'</span>, (packet) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; type, data &#125; = packet;</span><br><span class="line">  <span class="keyword">if</span> (type === <span class="string">'token'</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; uuid, message &#125; = data;</span><br><span class="line">    postClient(uuid, message);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> &#123;</span><br><span class="line">  broadcastMessageToNeighbor,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>经过上面的处理，基本已经实现了目标的效果。</p>
+<h3 id="四-新的解决办法-2018-6-30"><a href="#四-新的解决办法-2018-6-30" class="headerlink" title="四. 新的解决办法(2018/6/30)"></a>四. 新的解决办法(2018/6/30)</h3><p>上面的办法虽然看起来解决了问题，但是其实是一种 hack 的方式，知道我翻阅 pm2 文档时，看到了应用实现负载均衡应当<a href="https://pm2.io/doc/en/runtime/best-practices/stateless-application/" target="_blank" rel="noopener">首先将应用变为无状态应用</a>，也就是说不应当将数据(比如 session 或者 websocket 连接)存储在进程内部，而应当使用 redis 数据库之类的方式使多个进程可以共享数据，这么一说我茅塞顿开啊，这说的不就是我的情况。</p>
+<p>经过了一番比较之后，我挑选了一个新的服务器推送库<a href="https://socket.io/" target="_blank" rel="noopener">socket.io</a>，这个库非常强大，支持命名空间的概念，支持 room 和广播，并且还支持使用 Redis 作为 adapter，从而实现我们的需求 :)。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Server = <span class="built_in">require</span>(<span class="string">'socket.io'</span>);</span><br><span class="line"><span class="keyword">const</span> redisAdapter = <span class="built_in">require</span>(<span class="string">'socket.io-redis'</span>);</span><br><span class="line"><span class="comment">// 将我们的 server 作为第一个参数传入</span></span><br><span class="line"><span class="keyword">const</span> io = <span class="keyword">new</span> Server(server, &#123;</span><br><span class="line">  <span class="comment">// 默认 path 是 /socket.io</span></span><br><span class="line">  path: <span class="string">'ws'</span>,</span><br><span class="line">  adapter: redisAdapter(&#123; <span class="attr">host</span>: <span class="string">'localhost'</span>, <span class="attr">port</span>: <span class="number">6379</span> &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这样就启动了一个 socket.io 服务器，并且使用 redis 作为 adapter 实现了 stateless 应用。</p>
+<p>需要注意的是 path 指的是 socket.io 的通信路由，所以还得在 nginx 中加一个对 /ws (默认是 /socket.io) 路由的反向代理，配置与第三节一致</p>
+<p>由于使用了 redis 作为 adapter，那么 websocket 连接对于多个进程就相当于是共享的，因此不需要考虑之前碰到的问题了。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 数据库存储客户端ticket 和 连接的 socket.id 的对应关系</span></span><br><span class="line"><span class="keyword">const</span> log = <span class="keyword">await</span> WechatTicket.findOne(&#123;</span><br><span class="line">  ticket: <span class="built_in">decodeURIComponent</span>(ticket),</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">if</span> (_.isEmpty(log)) &#123; <span class="keyword">return</span>; &#125;</span><br><span class="line"><span class="comment">// 向对应的客户端发送 token</span></span><br><span class="line"><span class="keyword">const</span> socketId = log.socketId;</span><br><span class="line"><span class="keyword">await</span> io.to(socketId).emit(<span class="string">'token'</span>, token);</span><br><span class="line"><span class="comment">// 断开连接</span></span><br><span class="line"><span class="keyword">await</span> io.of(<span class="string">'/login'</span>).adapter.remoteDisconnect(socketId, <span class="literal">true</span>, (err) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 处理错误</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这样就真正地实现了这个需求。</p>
+<h3 id="五-总结"><a href="#五-总结" class="headerlink" title="五. 总结"></a>五. 总结</h3><p>通过上面的过程基本上完成了可用性，并且使用 https 以及 wss 来进行通信。但是还是有许多可以<a href="https://security.tencent.com/index.php/blog/msg/119" target="_blank" rel="noopener">优化的地方</a>，比如对Origin头部进行验证，防止跨站点WebSocket劫持攻击；设置单IP可建立连接的最大连接数等等</p>
+
+                
+<p class="pink-link-context">
+    <a href="/2018/05/11/frontend-canvas/" rel="next" title="Canvas 之 2D 上下文">
+    上一篇：Canvas 之 2D 上下文
+  </a>
+</p>
+
+
+
+<p class="pink-link-context">
+    <a href="/2018/04/19/koa-passport/" rel="next" title="Passport.js 源码阅读">
+    下一篇：Passport.js 源码阅读
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1" data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer indigo darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="https://github.com/LouisWT" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2016 example.com, All rights reserved.
+            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

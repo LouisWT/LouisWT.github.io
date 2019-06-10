@@ -1,0 +1,871 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>事件循环理解 | LouisWT 的技术博客</title>
+    <meta name="author" content="LouisWT">
+    
+    <meta name="description" content="Tech Blog">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="事件循环理解">
+    <meta property="og:site_name" content="LouisWT 的技术博客">
+
+    
+    <meta property="og:image" content="">
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="LouisWT 的技术博客" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="indigo">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">LouisWT 的技术博客</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/">
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives">
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading">
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about">
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search">
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav indigo darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://louiswt.oss-cn-shenzhen.aliyuncs.com/pictures/avatar.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">刘文同</p>
+                        <p class="desc">Web前端/Web后台</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/">
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives">
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading">
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about">
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search">
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav indigo darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Chrome/">
+                    Chrome <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Mac/">
+                    Mac <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/JavaScript/">
+                    JavaScript <span class="right">6 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/JavaScript/ES6/">
+                    ES6 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/前端/">
+                    前端 <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/Canvas/">
+                    Canvas <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/状态管理/">
+                    状态管理 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/前端/状态管理/Redux/">
+                    Redux <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/Webpack/">
+                    Webpack <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/服务器端/">
+                    服务器端 <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/服务器端/Node-js/">
+                    Node-js <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/服务器端/Node-js/Koa/">
+                    Koa <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/服务器端渲染/">
+                    服务器端渲染 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/服务器端渲染/浏览器端渲染/">
+                    浏览器端渲染 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/VSCode/">
+                    VSCode <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/轻慕课/">
+                    轻慕课 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Vue/">
+                    Vue <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper indigo">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/服务器端/">服务器端</a><a class="breadcrumb" href="/categories/服务器端/Node-js/">Node.js</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>事件循环理解</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2018-09-30T13:02:45.000Z"><a href="/2018/09/30/node-eventloop/">2018-09-30</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/Node-js/" class="chip pink lighten-1">Node.js</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#一-Node-js-的-event-loop"><span class="section table-of-contents-text">一. Node.js 的 event loop</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#1-1-Node-js-与-浏览器的-event-loop-区别"><span class="section table-of-contents-text">1.1 Node.js 与 浏览器的 event loop 区别</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#1-2-参考文档"><span class="section table-of-contents-text">1.2 参考文档</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#二-Node-js-event-loop-的运行机制"><span class="section table-of-contents-text">二. Node.js event loop 的运行机制</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-1-宏任务"><span class="section table-of-contents-text">2.1 宏任务</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-2-微任务"><span class="section table-of-contents-text">2.2 微任务</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#Promise-then-func"><span class="section table-of-contents-text">Promise.then(func)</span></a></li></ol></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#三-题目加深理解"><span class="section table-of-contents-text">三. 题目加深理解</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#3-1-题目一"><span class="section table-of-contents-text">3.1 题目一</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#3-2-题目二"><span class="section table-of-contents-text">3.2 题目二</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#3-3-题目三"><span class="section table-of-contents-text">3.3 题目三</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#3-4-题目四"><span class="section table-of-contents-text">3.4 题目四</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#3-5-题目五"><span class="section table-of-contents-text">3.5 题目五</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#3-6-题目六"><span class="section table-of-contents-text">3.6 题目六</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#3-7-题目七"><span class="section table-of-contents-text">3.7 题目七</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#四-要点总结"><span class="section table-of-contents-text">四.要点总结</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#五-参考"><span class="section table-of-contents-text">五. 参考</span></a></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <p>一直以来对Node.js 的事件循环机制都像蒙了层纱，看过一些文章，也经常只是跑通几个例子，然后强行解释一波，始终无法真正的理解。今天闲逛时看到了<a href="https://cnodejs.org/topic/5a9108d78d6e16e56bb80882#5a98d9a2ce1c90bc44c445af" target="_blank" rel="noopener">这篇文章</a>，感觉讲的很透彻，但是只是看完估计很快就忘了，所以这篇博客就记录下我对这篇文章的理解。<br><a id="more"></a></p>
+<h3 id="一-Node-js-的-event-loop"><a href="#一-Node-js-的-event-loop" class="headerlink" title="一. Node.js 的 event loop"></a>一. Node.js 的 event loop</h3><h4 id="1-1-Node-js-与-浏览器的-event-loop-区别"><a href="#1-1-Node-js-与-浏览器的-event-loop-区别" class="headerlink" title="1.1 Node.js 与 浏览器的 event loop 区别"></a>1.1 Node.js 与 浏览器的 event loop 区别</h4><ul>
+<li>Node.js 的event loop 是基于 libuv 库的；而浏览器的 event loop 是遵循 html5 规范的</li>
+<li>libuv 是事件循环模型的跨平台实现；浏览器的 event loop 每个浏览器厂商的实现都不一样</li>
+</ul>
+<h4 id="1-2-参考文档"><a href="#1-2-参考文档" class="headerlink" title="1.2 参考文档"></a>1.2 参考文档</h4><ul>
+<li><a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/" target="_blank" rel="noopener">The Node.js Event Loop, Timers, and <code>process.nextTick()</code></a></li>
+<li><a href="http://docs.libuv.org/en/v1.x/design.html" target="_blank" rel="noopener">libuv文档</a></li>
+</ul>
+<h3 id="二-Node-js-event-loop-的运行机制"><a href="#二-Node-js-event-loop-的运行机制" class="headerlink" title="二. Node.js event loop 的运行机制"></a>二. Node.js event loop 的运行机制</h3><p><img src="https://qingmooc-v1.oss-cn-qingdao.aliyuncs.com/other/v2-3a59c624e6ff95a7e8c5a23c979f5abe_r.jpg" alt="data:image"></p>
+<p>上面这个图展示了事件循环的机制，绿色的块是macrotask（宏任务），macrotask 中穿插的粉红箭头是 microtask（微任务）。</p>
+<h4 id="2-1-宏任务"><a href="#2-1-宏任务" class="headerlink" title="2.1 宏任务"></a>2.1 宏任务</h4><p>宏任务主要有：整体代码(script)、setTimeout、setInterval、I/O、setImmediate</p>
+<p>把那个图正过来是下面的样子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">   ┌───────────────────────┐</span><br><span class="line">┌─&gt;│        timers         │</span><br><span class="line">│  └──────────┬────────────┘</span><br><span class="line">│  ┌──────────┴────────────┐</span><br><span class="line">│  │     I/O callbacks     │</span><br><span class="line">│  └──────────┬────────────┘</span><br><span class="line">│  ┌──────────┴────────────┐</span><br><span class="line">│  │     idle, prepare     │</span><br><span class="line">│  └──────────┬────────────┘      ┌───────────────┐</span><br><span class="line">│  ┌──────────┴────────────┐      │   incoming:   │</span><br><span class="line">│  │         poll          │&lt;─────┤  connections, │</span><br><span class="line">│  └──────────┬────────────┘      │   data, etc.  │</span><br><span class="line">│  ┌──────────┴────────────┐      └───────────────┘</span><br><span class="line">│  │        check          │</span><br><span class="line">│  └──────────┬────────────┘</span><br><span class="line">│  ┌──────────┴────────────┐</span><br><span class="line">└──┤    close callbacks    │</span><br><span class="line">   └───────────────────────┘</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>timers: 执行 setTimeout() 和 setInterbal() 中到期的回调函数</li>
+<li>I/O callbacks：上一轮循环中少数的 I/O callback 会被延迟到这一轮的这一阶段执行</li>
+<li>idle,perpre：仅内部使用</li>
+<li>poll: 最重要的阶段，执行 I/O callback，适当的条件下会阻塞在这个阶段</li>
+<li>check: 执行 setImmediate 的回调函数</li>
+<li>close callbacks: 执行close事件的callback，例如socket.on(“close”,func) 中的 func</li>
+</ul>
+<p><strong>event loop的每一次循环都需要依次经过上述的阶段。  每个阶段都有自己的callback队列，每当进入某个阶段，都会从所属的队列中取出callback来执行，当队列为空或者被执行callback的数量达到系统的最大数量时，进入下一阶段。这六个阶段都执行完毕称为一轮循环。</strong></p>
+<h4 id="2-2-微任务"><a href="#2-2-微任务" class="headerlink" title="2.2 微任务"></a>2.2 微任务</h4><p>微任务主要有：Promise.then、process.nextTick</p>
+<p><strong>事件循环的每个阶段都会先执行微任务</strong>。</p>
+<h5 id="Promise-then-func"><a href="#Promise-then-func" class="headerlink" title="Promise.then(func)"></a>Promise.then(func)</h5><p>这里指的是 then 中的func 是一个微任务，但是Promise 的构造函数是同步执行的。</p>
+<h3 id="三-题目加深理解"><a href="#三-题目加深理解" class="headerlink" title="三. 题目加深理解"></a>三. 题目加深理解</h3><p>这里的题目主要是来源于<a href="https://zhuanlan.zhihu.com/p/34182184" target="_blank" rel="noopener">知乎专栏</a>和<a href="https://github.com/dwqs/blog/issues/61" target="_blank" rel="noopener">这里</a></p>
+<p>这些题目对我理解上面的模型有很大帮助。</p>
+<h4 id="3-1-题目一"><a href="#3-1-题目一" class="headerlink" title="3.1 题目一"></a>3.1 题目一</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(() =&gt; &#123;</span><br><span class="line">  console.log(&apos;timeout&apos;);</span><br><span class="line">&#125;, 0)</span><br><span class="line"></span><br><span class="line">setImmediate(() =&gt; &#123;</span><br><span class="line">  console.log(&apos;immediate&apos;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// immediate</span><br><span class="line">// timeout</span><br><span class="line">或</span><br><span class="line">// timeout</span><br><span class="line">// immediate</span><br></pre></td></tr></table></figure>
+<p>第一个循环：</p>
+<ul>
+<li>执行 setTimeout，将回调函数注册到 timers 阶段的队列</li>
+<li>然后执行setImmediate，将回调函数执行到check阶段。</li>
+<li>然后在 timers 阶段执行 setTimeout的回调，在check阶段执行 setImmediate的回调。</li>
+</ul>
+<p>这样看，答案应该是确定的。</p>
+<p>但是虽然 timers 阶段在 check 阶段前面，可还有一个问题。</p>
+<p><strong>setTimeout/setInterval 的第二个参数取值范围为[1, 2^31-1]，如果不在这个范围则置为1，所以 setTimeout(func, 0)，实际上是 setTimeout(func, 1)</strong></p>
+<ul>
+<li>如果到达 timer阶段的时间距离注册 setTimeout 的回调的时间小于 1ms，那么就不会执行这个回调，所以会先打印 immediate</li>
+<li>如果到达 timer阶段的时间距离注册 setTimeout 的回调的时间大于 1ms，那么就会执行到期的回调，先打印 timeout</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(() =&gt; &#123;</span><br><span class="line">  console.log(&apos;timeout&apos;);</span><br><span class="line">&#125;, 0)</span><br><span class="line"></span><br><span class="line">setImmediate(() =&gt; &#123;</span><br><span class="line">  console.log(&apos;immediate&apos;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">let time = Date.now()</span><br><span class="line">while(Date.now() - time &lt; 10);</span><br><span class="line"></span><br><span class="line">// timeout</span><br><span class="line">// immediate</span><br></pre></td></tr></table></figure>
+<p>通过while循环使下个事件循环到达 timer阶段的时间距离注册 setTimeout 的回调的时间一定大于 10ms，这样就肯定会先执行 setTimeout</p>
+<h4 id="3-2-题目二"><a href="#3-2-题目二" class="headerlink" title="3.2 题目二"></a>3.2 题目二</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const fs = require(&apos;fs&apos;)</span><br><span class="line"></span><br><span class="line">fs.readFile(__filename, () =&gt; &#123;</span><br><span class="line">  setTimeout(() =&gt; &#123;</span><br><span class="line">    console.log(&apos;setTimeout&apos;)</span><br><span class="line">  &#125;, 0)</span><br><span class="line"></span><br><span class="line">  setImmediate(() =&gt; &#123;</span><br><span class="line">    console.log(&apos;setImmediate&apos;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// setImmediate</span><br><span class="line">// setTimeout</span><br></pre></td></tr></table></figure>
+<p>第一个循环：</p>
+<ul>
+<li>首先执行将 IO 的 callback 注册到 poll阶段</li>
+</ul>
+<p>不知道第几个循环：</p>
+<ul>
+<li>poll阶段时，发现IO操作完成，执行回调函数。</li>
+<li>将 setTimeout 的回调注册到 timers 阶段 </li>
+<li>将 setImmediate 的回调注册到 check 阶段</li>
+<li>IO的回调执行完，从 poll 阶段出来之后，正好是 check 阶段。执行 setImmediate 的回调</li>
+</ul>
+<p>之后的一个循环：</p>
+<ul>
+<li>进入下个事件循环，执行setTimeout 的回调</li>
+</ul>
+<h4 id="3-3-题目三"><a href="#3-3-题目三" class="headerlink" title="3.3 题目三"></a>3.3 题目三</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">setInterval(() =&gt; &#123;</span><br><span class="line">  console.log(&apos;setInterval&apos;)</span><br><span class="line">&#125;, 100)</span><br><span class="line"></span><br><span class="line">process.nextTick(function tick () &#123;</span><br><span class="line">  process.nextTick(tick)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 什么都不打印</span><br></pre></td></tr></table></figure>
+<p><strong>process.nextTick 内执行 process.nextTick 仍然将 tick 函数注册到当前 microtask 的尾部，所以导致 microtask 永远执行不完</strong>。导致 event loop 上其他 macrotask 阶段的回调函数没有机会执行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">setInterval(() =&gt; &#123;</span><br><span class="line">  console.log(&apos;setInterval&apos;)</span><br><span class="line">&#125;, 100)</span><br><span class="line"></span><br><span class="line">setImmediate(function immediate () &#123;</span><br><span class="line">  setImmediate(immediate)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 每 100ms 打印一次 setInterval</span><br></pre></td></tr></table></figure>
+<p>这是因为 <strong>setImmediate 中的setImmediate 会将 immediate 函数注册到下一次 event loop 的 check 阶段，而不是当前正在执行的 check 阶段</strong>，所以给了 event loop 上其他 macrotask 执行的机会。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">setImmediate(() =&gt; &#123;</span><br><span class="line">  console.log(&apos;setImmediate1&apos;)</span><br><span class="line">  setImmediate(() =&gt; &#123;</span><br><span class="line">    console.log(&apos;setImmediate2&apos;)</span><br><span class="line">  &#125;)</span><br><span class="line">  process.nextTick(() =&gt; &#123;</span><br><span class="line">    console.log(&apos;nextTick&apos;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">setImmediate(() =&gt; &#123;</span><br><span class="line">  console.log(&apos;setImmediate3&apos;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// setImmediate1</span><br><span class="line">// setImmediate3</span><br><span class="line">// nextTick</span><br><span class="line">// setImmediate2</span><br></pre></td></tr></table></figure>
+<p>第一个循环：</p>
+<ul>
+<li>首先会将两个 setImmediate 的回调都注册到下次事件循环的 check 阶段</li>
+</ul>
+<p>第二个循环：</p>
+<ul>
+<li>到check 阶段时，执行第一个 setImmediate 回调，输出 setImmediate1，将 setImmediate2 的回调注册到下个事件循环时，将 process.nextTick 注册到这个宏任务之后的微任务中</li>
+<li>执行第二个 setImmediate 回调，输出 setImmediate3</li>
+<li>check 阶段宏任务完成，执行微任务，输出nextTick</li>
+</ul>
+<p>第三个循环：</p>
+<ul>
+<li>进入下一个事件循环，输出 setImmediate2</li>
+</ul>
+<h4 id="3-4-题目四"><a href="#3-4-题目四" class="headerlink" title="3.4 题目四"></a>3.4 题目四</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const promise = Promise.resolve()</span><br><span class="line">  .then(() =&gt; &#123;</span><br><span class="line">    return promise</span><br><span class="line">  &#125;)</span><br><span class="line">promise.catch(console.error)</span><br><span class="line"></span><br><span class="line">// TypeError: Chaining cycle detected for promise #&lt;Promise&gt;</span><br><span class="line"></span><br><span class="line">process.nextTick(function tick () &#123;</span><br><span class="line">  process.nextTick(tick)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>promise.then 类似于 process.nextTick，都会将回调函数注册到 microtask 阶段。上面代码会导致死循环。</p>
+<p>上面两段代码效果一样。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Promise.resolve()</span><br><span class="line">.then(() =&gt; &#123;</span><br><span class="line">  console.log(&apos;promise&apos;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">process.nextTick(() =&gt; &#123;</span><br><span class="line">  console.log(&apos;process&apos;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// process</span><br><span class="line">// promise</span><br></pre></td></tr></table></figure>
+<p>promise.then 虽然和 process.nextTick 一样，都将回调函数注册到 microtask，但优先级不一样。<strong>process.nextTick 的 microtask 队列 总是优先于 promise 的 microtask 队列 执行。</strong></p>
+<h4 id="3-5-题目五"><a href="#3-5-题目五" class="headerlink" title="3.5 题目五"></a>3.5 题目五</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(() =&gt; &#123;</span><br><span class="line">  console.log(1)</span><br><span class="line">&#125;, 0)</span><br><span class="line"></span><br><span class="line">new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">  console.log(2)</span><br><span class="line">  for (let i = 0; i &lt; 10000; i++) &#123;</span><br><span class="line">    i === 9999 &amp;&amp; resolve()</span><br><span class="line">  &#125;</span><br><span class="line">  console.log(3)</span><br><span class="line">&#125;).then(() =&gt; &#123;</span><br><span class="line">  console.log(4)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">setImmediate(() =&gt; &#123;</span><br><span class="line">  console.log(6)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">console.log(5)</span><br><span class="line"></span><br><span class="line">// 2</span><br><span class="line">// 3</span><br><span class="line">// 5</span><br><span class="line">// 4</span><br><span class="line">// 1</span><br><span class="line">// 6</span><br></pre></td></tr></table></figure>
+<p>第一个循环：</p>
+<ul>
+<li>将 1的setTimeout 注册到 timers 阶段</li>
+<li>执行 Promise，打印2、叠加 i，将 then 注册到 microTask、打印3</li>
+<li>将 6的setImmediate 注册到 check 阶段</li>
+<li>打印 5</li>
+<li>执行微任务，打印4</li>
+<li>timers 阶段，打印1</li>
+<li>check阶段，打印5</li>
+</ul>
+<h4 id="3-6-题目六"><a href="#3-6-题目六" class="headerlink" title="3.6 题目六"></a>3.6 题目六</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">setImmediate(() =&gt; &#123;</span><br><span class="line">  console.log(1)</span><br><span class="line">  setTimeout(() =&gt; &#123;</span><br><span class="line">    console.log(2)</span><br><span class="line">  &#125;, 100)</span><br><span class="line">  setImmediate(() =&gt; &#123;</span><br><span class="line">    console.log(3)</span><br><span class="line">  &#125;)</span><br><span class="line">  process.nextTick(() =&gt; &#123;</span><br><span class="line">    console.log(4)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">process.nextTick(() =&gt; &#123;</span><br><span class="line">  console.log(5)</span><br><span class="line">  setTimeout(() =&gt; &#123;</span><br><span class="line">    console.log(6)</span><br><span class="line">  &#125;, 100)</span><br><span class="line">  setImmediate(() =&gt; &#123;</span><br><span class="line">    console.log(7)</span><br><span class="line">  &#125;)</span><br><span class="line">  process.nextTick(() =&gt; &#123;</span><br><span class="line">    console.log(8)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">console.log(9)</span><br><span class="line"></span><br><span class="line">// 9</span><br><span class="line">// 5</span><br><span class="line">// 8</span><br><span class="line">// 1</span><br><span class="line">// 7</span><br><span class="line">// 4</span><br><span class="line">// 3</span><br><span class="line">// 6</span><br><span class="line">// 2</span><br></pre></td></tr></table></figure>
+<p>第一个循环：</p>
+<ul>
+<li>首先将 1的setImmediate 的回调注册到下个循环的 check 阶段，将 5的process.nextTick 回调注册到 microTask，然后打印 9</li>
+<li>执行 microTask，打印 5，将 6的setTimeout 的回调注册到 timers 阶段，将 7的setImmediate 的回调注册到 check 阶段，将 process.nextTick 注册到当前 microTask 队列的尾部</li>
+<li>当前 microTask 还有任务，执行，打印 8。microTask 队列清空</li>
+</ul>
+<p>第二个循环：</p>
+<ul>
+<li>到达下个循环的timer 阶段，6的setTimeout 的时间还没到，不执行</li>
+<li>到达 check 阶段，此时队列里有 1的setImmediate 和 7的setImmediate</li>
+<li>执行 1的setImmediate，打印1，将 2的setTimeout 注册到timers阶段，将 3的setImmediate 注册到下一循环的 check阶段，将 4的process.nextTick 注册到 microTask</li>
+<li>执行 7的setImmediate，打印7，check 阶段完成</li>
+<li>执行 microTask 中 4的process.nextTick，打印4</li>
+</ul>
+<p>第三个循环：</p>
+<ul>
+<li>进入下一循环的 timers 阶段，6的setTimeout 与 2的setTimeout 时间都没到，所以不执行</li>
+<li>到达 check 阶段，执行 3的setImmediate，打印3</li>
+</ul>
+<p>不知道第几个循环：</p>
+<ul>
+<li>等到 setTimeout 到期，执行 6的setTimeout 与 2的setTimeout，打印 6，2</li>
+</ul>
+<h4 id="3-7-题目七"><a href="#3-7-题目七" class="headerlink" title="3.7 题目七"></a>3.7 题目七</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">new Promise(resolve =&gt; &#123;</span><br><span class="line">    resolve(1);</span><br><span class="line">    Promise.resolve().then(() =&gt; console.log(2));</span><br><span class="line">    console.log(4)</span><br><span class="line">&#125;).then(t =&gt; console.log(t));</span><br><span class="line">console.log(3);</span><br><span class="line"></span><br><span class="line">// 4</span><br><span class="line">// 3</span><br><span class="line">// 2</span><br><span class="line">// 1</span><br></pre></td></tr></table></figure>
+<p>第一个循环：</p>
+<ul>
+<li>同步执行 Promise构造函数，<code>Promise.resolve</code> 将 then 的函数注册在 microTask 队列中，打印4，</li>
+<li>将 1的Promise.then 注册到 microTask 中</li>
+<li>打印3</li>
+<li>执行 microTask的第一个任务，打印2</li>
+<li>执行 第二个任务，打印1</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">  console.log(5);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">new Promise(resolve =&gt; &#123;</span><br><span class="line">  resolve(1);</span><br><span class="line">  Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">    console.log(2)</span><br><span class="line">  &#125;);</span><br><span class="line">  console.log(4)</span><br><span class="line">&#125;).then(t =&gt; console.log(t));</span><br><span class="line"></span><br><span class="line">process.nextTick(() =&gt; &#123;</span><br><span class="line">  console.log(7);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">  console.log(6);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">console.log(3);</span><br><span class="line"></span><br><span class="line">// 4</span><br><span class="line">// 3</span><br><span class="line">// 7</span><br><span class="line">// 5</span><br><span class="line">// 2</span><br><span class="line">// 1</span><br><span class="line">// 6</span><br></pre></td></tr></table></figure>
+<p>第一个循环:</p>
+<ul>
+<li>将 5的then 注册到 microTask</li>
+<li>执行Promise，将 2的then 注册到 microTask，打印4</li>
+<li>将 Promise的then 注册到 microTask</li>
+<li>将 7的process.nextTick 注册 microTask</li>
+<li>将 6的then 注册到 microTask</li>
+<li>打印3</li>
+<li>执行 microTask，先执行 7的process.nextTick，打印7</li>
+<li>执行 Promise 的 microTask，打印 5，2，1，6</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">new Promise(resolve =&gt; &#123;</span><br><span class="line">  resolve(1);</span><br><span class="line">  Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">    console.log(2)</span><br><span class="line">    process.nextTick(() =&gt; &#123;</span><br><span class="line">      console.log(5);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">  Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">    console.log(6);</span><br><span class="line">  &#125;)</span><br><span class="line">  console.log(4)</span><br><span class="line">&#125;).then(t =&gt; console.log(t));</span><br><span class="line">console.log(3);</span><br><span class="line"></span><br><span class="line">// 4</span><br><span class="line">// 3</span><br><span class="line">// 2</span><br><span class="line">// 6</span><br><span class="line">// 1</span><br><span class="line">// 5</span><br></pre></td></tr></table></figure>
+<p>第一个循环：</p>
+<ul>
+<li>将 2的then 注册到 microTask</li>
+<li>将 6的then 注册到 microTask</li>
+<li>打印4</li>
+<li>将 Promise的then 注册到 microTask</li>
+<li>打印3</li>
+<li>执行 microTask中Promise的队列， 先执行 2的then，打印2，将process.nextTick注册到microTask</li>
+<li>执行 6的then，打印6</li>
+<li>执行 Promise的then，打印1。</li>
+<li>执行 process.nextTick ，打印5</li>
+</ul>
+<h3 id="四-要点总结"><a href="#四-要点总结" class="headerlink" title="四.要点总结"></a>四.要点总结</h3><ol>
+<li><p>事件循环模型。</p>
+</li>
+<li><p>事件循环的每个阶段都会先执行微任务</p>
+</li>
+<li><p>细节：</p>
+</li>
+</ol>
+<ul>
+<li>Promise 的构造函数是同步执行的，then 回调才会进 微任务队列。Promise 执行到 then语句，才会把 then 中的回调排进 微任务队列</li>
+<li>process.nextTick 会将函数注册到微任务队列</li>
+<li>process.nectTick 和 Promise 的微任务是两个队列。且 process.nectTick 的优先级高</li>
+<li>setImmediate 中的setImmediate 会将 immediate 函数注册到下一次 event loop 的 check 阶段，而不是当前正在执行的 check 阶段</li>
+<li>setTimeout/setInterval 的第二个参数取值范围为[1, 2^31-1]，如果不在这个范围则置为1，setTimeout(func, 0)，实际上是 setTimeout(func, 1)。</li>
+</ul>
+<h3 id="五-参考"><a href="#五-参考" class="headerlink" title="五. 参考"></a>五. 参考</h3><ul>
+<li><a href="https://cnodejs.org/topic/5a9108d78d6e16e56bb80882#5a98d9a2ce1c90bc44c445af" target="_blank" rel="noopener">不要混淆nodejs和浏览器中的event loop</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/34182184" target="_blank" rel="noopener">Event Loop 必知必会（六道题）</a></li>
+<li><a href="https://github.com/dwqs/blog/issues/61" target="_blank" rel="noopener">从一道题浅说 JavaScript 的事件循环</a></li>
+</ul>
+
+                
+<p class="pink-link-context">
+    <a href="/2018/10/17/redux-middleware/" rel="next" title="理解 Redux 中间件机制">
+    上一篇：理解 Redux 中间件机制
+  </a>
+</p>
+
+
+
+<p class="pink-link-context">
+    <a href="/2018/09/10/react-redux/" rel="next" title="使用 redux 开发流程">
+    下一篇：使用 redux 开发流程
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1" data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer indigo darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="https://github.com/LouisWT" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2016 example.com, All rights reserved.
+            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>
