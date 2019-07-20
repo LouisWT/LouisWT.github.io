@@ -1,0 +1,703 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>JavaScript 模式 | LouisWT 的技术博客</title>
+    <meta name="author" content="LouisWT">
+    
+    <meta name="description" content="Tech Blog">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="JavaScript 模式">
+    <meta property="og:site_name" content="LouisWT 的技术博客">
+
+    
+    <meta property="og:image" content="">
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="LouisWT 的技术博客" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="indigo">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">LouisWT 的技术博客</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/">
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives">
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading">
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about">
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search">
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav indigo darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://louiswt.oss-cn-shenzhen.aliyuncs.com/pictures/avatar.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">刘文同</p>
+                        <p class="desc">Web前端/Web后台</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/">
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives">
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading">
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about">
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search">
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav indigo darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Chrome/">
+                    Chrome <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Mac/">
+                    Mac <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/JavaScript/">
+                    JavaScript <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/JavaScript/ES6/">
+                    ES6 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/前端/">
+                    前端 <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/状态管理/">
+                    状态管理 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/前端/状态管理/Redux/">
+                    Redux <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/Canvas/">
+                    Canvas <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/Webpack/">
+                    Webpack <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/服务器端/">
+                    服务器端 <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/服务器端/Node-js/">
+                    Node-js <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/服务器端/Node-js/Koa/">
+                    Koa <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/服务器端渲染/">
+                    服务器端渲染 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/服务器端渲染/浏览器端渲染/">
+                    浏览器端渲染 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/VSCode/">
+                    VSCode <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/轻慕课/">
+                    轻慕课 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper indigo">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/undefined">undefined</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>JavaScript 模式</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2019-07-20T05:57:04.727Z"><a href="/tmp/javascript-pattern-TODO.html">2019-07-20</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/undefined" class="chip pink lighten-1"></a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#一-基本技巧"><span class="section table-of-contents-text">一. 基本技巧</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1-1-单一var模式"><span class="section table-of-contents-text">1.1 单一var模式</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1-2-for-循环不要重复获取长度"><span class="section table-of-contents-text">1.2 for 循环不要重复获取长度</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1-3-数值解析与转换"><span class="section table-of-contents-text">1.3 数值解析与转换</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1-4-抛出自定义错误"><span class="section table-of-contents-text">1.4 抛出自定义错误</span></a></li></ol></li></ol><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#二-函数"><span class="section table-of-contents-text">二. 函数</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#2-1-立即执行函数"><span class="section table-of-contents-text">2.1 立即执行函数</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#2-2-初始化分支"><span class="section table-of-contents-text">2.2 初始化分支</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#三-对象"><span class="section table-of-contents-text">三. 对象</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#3-1-实现对象的私有成员"><span class="section table-of-contents-text">3.1 实现对象的私有成员</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#3-2-私有静态成员"><span class="section table-of-contents-text">3.2 私有静态成员</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#3-3-模块模式"><span class="section table-of-contents-text">3.3 模块模式</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#1-对象形式"><span class="section table-of-contents-text">1. 对象形式</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-构造函数形式"><span class="section table-of-contents-text">2. 构造函数形式</span></a></li></ol></li></ol></li>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <h1 id="一-基本技巧"><a href="#一-基本技巧" class="headerlink" title="一. 基本技巧"></a>一. 基本技巧</h1><h3 id="1-1-单一var模式"><a href="#1-1-单一var模式" class="headerlink" title="1.1 单一var模式"></a>1.1 单一var模式</h3><p><strong>只使用一个 var(let) 在函数的顶部进行变量声明以及初始化</strong></p>
+<p>优点：</p>
+<ul>
+<li>方便找到函数需要的所有局部变量</li>
+<li>防止变量在定义前被使用</li>
+<li>编码更少<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> a = <span class="number">1</span>,</span><br><span class="line">      b = <span class="number">2</span>,</span><br><span class="line">      sum = a + b,</span><br><span class="line">      obj = &#123;&#125;;</span><br><span class="line">  <span class="comment">// function body</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="1-2-for-循环不要重复获取长度"><a href="#1-2-for-循环不要重复获取长度" class="headerlink" title="1.2 for 循环不要重复获取长度"></a>1.2 for 循环不要重复获取长度</h3><p><strong>如果要缓存的数组是HTMLCollection，涉及DOM操作，那么缓存遍历的数组的长度</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, length = arr.length; i &lt; length; i++) &#123;</span><br><span class="line">  <span class="comment">// 操作</span></span><br><span class="line">  <span class="comment">// 如果中间数组长度更改了，那么需要修改 length</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>for 循环在对类数组对象进行遍历，尤其是对 HTMLCollection 对象进行遍历，如果每次都要获取长度，那么是非常耗性能的<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假设 arr 是一个 HTMLCollection</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">  <span class="comment">// 操作</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-3-数值解析与转换"><a href="#1-3-数值解析与转换" class="headerlink" title="1.3 数值解析与转换"></a>1.3 数值解析与转换</h3><p>转换指确定字符串只包含数字，并且数字的基数是 10。解析指从字符串中解析到开头的数字部分，后面可能有别的字符，并且可以指定基数。</p>
+<ul>
+<li><strong>将一个字符串解析为数字时，使用parseInt，为了代码清晰要传递第二个参数来明确指定基数</strong></li>
+<li><strong>将一个字符串转换为数字时，使用 “+” 或者 Number() 来转换，这样速度更快</strong></li>
+</ul>
+<h3 id="1-4-抛出自定义错误"><a href="#1-4-抛出自定义错误" class="headerlink" title="1.4 抛出自定义错误"></a>1.4 抛出自定义错误</h3><p>throw 除了可以抛出 new Error 产生的对象，也可以抛出任意对象，可以利用这个特点在某些时候优雅的处理错误<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="keyword">throw</span> &#123;</span><br><span class="line">    name: <span class="string">"MyError"</span>,</span><br><span class="line">    message: <span class="string">"balabala"</span>,</span><br><span class="line">    process: errorHandler,</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(e.message)</span><br><span class="line">  e.errorHandler()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="二-函数"><a href="#二-函数" class="headerlink" title="二. 函数"></a>二. 函数</h1><h3 id="2-1-立即执行函数"><a href="#2-1-立即执行函数" class="headerlink" title="2.1 立即执行函数"></a>2.1 立即执行函数</h3><p>通过立即执行函数可以让函数立即执行，并确保变量不会污染全局变量，尽管现在通过 let const 可以获得块级作用域，但是立即执行函数还是非常常用<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> result = (<span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 操作</span></span><br><span class="line">&#125;)(bar, foo)</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-2-初始化分支"><a href="#2-2-初始化分支" class="headerlink" title="2.2 初始化分支"></a>2.2 初始化分支</h3><p><strong>在知道某个条件在整个程序周期内都不会发生改变的时候，仅对该条件只测试一次</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> utils = &#123;</span><br><span class="line">  addListener: <span class="function"><span class="keyword">function</span> (<span class="params">el, func, type</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> el.addEventListener === <span class="string">'function'</span>) &#123;</span><br><span class="line">      el.addEventListener(type, func, <span class="literal">false</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (el.attachEvent === <span class="string">'function'</span>) &#123;</span><br><span class="line">      el.attachEvent(<span class="string">'on'</span> + type, fn);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      el[<span class="string">'on'</span> + type] = fn;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  removeListener: <span class="function"><span class="keyword">function</span> (<span class="params">el, func, type</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 修改为</span></span><br><span class="line"><span class="keyword">let</span> utils = &#123;</span><br><span class="line">  addListener: <span class="literal">null</span>,</span><br><span class="line">  removeListener: <span class="literal">null</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">window</span>.addEventListener === <span class="string">'function'</span>) &#123;</span><br><span class="line">  utils.addListener = <span class="function"><span class="keyword">function</span> (<span class="params">el, func</span>) </span>&#123;</span><br><span class="line">    el.addEventListener(type, func, <span class="literal">false</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.attachEvent === <span class="string">'function'</span>) &#123;</span><br><span class="line">  utils.addListener = <span class="function"><span class="keyword">function</span> (<span class="params">el, func</span>) </span>&#123;</span><br><span class="line">    el.attachEvent(<span class="string">'on'</span> + type, fn);</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  utils.addListener = <span class="function"><span class="keyword">function</span> (<span class="params">el, func</span>) </span>&#123;</span><br><span class="line">    el[<span class="string">'on'</span> + type] = fn;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="三-对象"><a href="#三-对象" class="headerlink" title="三. 对象"></a>三. 对象</h1><h3 id="3-1-实现对象的私有成员"><a href="#3-1-实现对象的私有成员" class="headerlink" title="3.1 实现对象的私有成员"></a>3.1 实现对象的私有成员</h3><p>通过闭包实现对象的私有成员。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 私有属性</span></span><br><span class="line">  <span class="keyword">let</span> name = <span class="string">'lwt'</span>;</span><br><span class="line">  <span class="keyword">this</span>.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">this</span>.setName = <span class="function"><span class="keyword">function</span> (<span class="params">val</span>) </span>&#123;</span><br><span class="line">    name = val;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 私有方法</span></span><br><span class="line">  <span class="keyword">let</span> privateMethod = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">this</span>.doSomething = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// ....</span></span><br><span class="line">    privateMethod();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// prototype 中实现私有属性，创建的对象共享这个属性</span></span><br><span class="line">Foo.prototype = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> browser = <span class="string">'chrome'</span>;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    getBrowser() &#123;</span><br><span class="line">      <span class="keyword">return</span> browser;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-2-私有静态成员"><a href="#3-2-私有静态成员" class="headerlink" title="3.2 私有静态成员"></a>3.2 私有静态成员</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> Gadget = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> counter = <span class="number">0</span>,</span><br><span class="line">      NewGadget;</span><br><span class="line">  <span class="comment">// 新的构造函数</span></span><br><span class="line">  NewGadget = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    counter += <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  NewGadget.prototype.getLastId = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> counter;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> NewGadget;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 所有构造出来的对象共享 couner 这个静态属性，并且不能直接访问这个属性</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="keyword">new</span> Gadget();</span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(a.getLastId())</span><br><span class="line"><span class="keyword">let</span> b = <span class="keyword">new</span> Gadget();</span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(a.getLastId())</span><br></pre></td></tr></table></figure>
+<h3 id="3-3-模块模式"><a href="#3-3-模块模式" class="headerlink" title="3.3 模块模式"></a>3.3 模块模式</h3><h4 id="1-对象形式"><a href="#1-对象形式" class="headerlink" title="1. 对象形式"></a>1. 对象形式</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">utils.array = (<span class="function"><span class="keyword">function</span> (<span class="params">_</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 依赖</span></span><br><span class="line">  <span class="comment">// 这里只是示范一下</span></span><br><span class="line">  <span class="keyword">let</span> &#123; map &#125; = _,</span><br><span class="line">  <span class="comment">// 私有属性</span></span><br><span class="line">      array = <span class="string">"[object Array]"</span>,</span><br><span class="line">  <span class="comment">// 私有方法</span></span><br><span class="line">      ops = <span class="built_in">Object</span>.prototype.toString;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 这里进行一些一次性的初始化过程</span></span><br><span class="line">  <span class="comment">// ......</span></span><br><span class="line">  <span class="comment">// 共有API</span></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    isArray(a) &#123;</span><br><span class="line">      <span class="keyword">return</span> ops.call(a) === array;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)(lodash)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用方法</span></span><br><span class="line">utils.array.isArray([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</span><br></pre></td></tr></table></figure>
+<h4 id="2-构造函数形式"><a href="#2-构造函数形式" class="headerlink" title="2. 构造函数形式"></a>2. 构造函数形式</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">utils.Array = (<span class="function"><span class="keyword">function</span>(<span class="params">_</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 依赖</span></span><br><span class="line">  <span class="keyword">let</span> &#123; map &#125; = _,</span><br><span class="line">  <span class="comment">// 私有属性</span></span><br><span class="line">      array = <span class="string">"[object Array]"</span>,</span><br><span class="line">  <span class="comment">// 私有方法</span></span><br><span class="line">      ops = <span class="built_in">Object</span>.prototype.toString;</span><br><span class="line">  <span class="comment">// 初始化过程</span></span><br><span class="line">  <span class="comment">// ......</span></span><br><span class="line">  <span class="comment">// 构造函数</span></span><br><span class="line">  Constr = <span class="function"><span class="keyword">function</span> (<span class="params">o</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.elements = <span class="keyword">this</span>.toArray(o);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 共有API</span></span><br><span class="line">  Constr.prototype = &#123;</span><br><span class="line">    <span class="keyword">constructor</span>: utils.Array,</span><br><span class="line">    toArray(o) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Array</span>.from(o);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 返回构造函数</span></span><br><span class="line">  <span class="keyword">return</span> Constr;</span><br><span class="line">&#125;)(lodash)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用方法</span></span><br><span class="line"><span class="keyword">let</span> arr = <span class="keyword">new</span> utils.Array(obj);</span><br></pre></td></tr></table></figure>
+<p><strong>向模块模式中传递依赖或者参数可以通过立即执行函数的参数来传递</strong></p>
+
+                
+
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1" data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer indigo darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="https://github.com/LouisWT" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2016 example.com, All rights reserved.
+            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>
